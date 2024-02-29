@@ -1,7 +1,7 @@
 #THIS MAIN PROGRAM IS ONLY VALID FOR THE FIRST THREE WEEKS OF CLASS
 #IN GUIDED EXERCISE 2.2, TESTING MUST BE PERFORMED USING UNITTESTS.
 
-from UC3MTravel import HotelManager
+from src.main.python.UC3MTravel import HotelManager
 
 
 def main():
