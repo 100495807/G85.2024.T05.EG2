@@ -2,6 +2,7 @@
 #IN GUIDED EXERCISE 2.2, TESTING MUST BE PERFORMED USING UNITTESTS.
 
 from src.main.python.UC3MTravel import HotelManager
+from HotelManagementException import HotelManagementException
 
 
 def main():

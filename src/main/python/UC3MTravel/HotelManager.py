@@ -1,15 +1,14 @@
 import json
 from HotelManagementException import HotelManagementException
 from HotelReservation import HotelReservation
-
+#test algoritmo luhn, test localizer e idcard,
 
 class HotelManager:
     def __init__(self):
         pass
 
     def validatecreditcard(self, x):
-        num = map(int, str(x))
-        return sum(num[::-2] + [sum(divmod(d * 2, 10)) for d in num[-2::-2]]) % 10 == 0
+
 
     def ReaddatafromJSOn(self, fi):
 
