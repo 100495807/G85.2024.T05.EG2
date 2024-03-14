@@ -1,6 +1,6 @@
 import json
-from .HotelManagementException import HotelManagementException
-from .HotelReservation import HotelReservation
+from HotelManagementException import HotelManagementException
+from HotelReservation import HotelReservation
 
 
 class HotelManager:
