@@ -3,7 +3,7 @@ from datetime import datetime
 import hashlib
 
 class HotelStay():
-    def __init__(self, idcard, localizer, numdays, roomtype  ):
+    def __init__(self, idcard, localizer, numdays, roomtype):
         self.__alg = "SHA-256"
         self.__type = roomtype
         self.__idcard = idcard
@@ -13,6 +13,7 @@ class HotelStay():
         #timestamp is represented in seconds.miliseconds
         #to add the number of days we must express numdays in seconds
         self.__departure = self.__arrival + (numdays * 24 * 60 * 60)
+        self.__room_key = self.room_key
 
     def __signature_string(self):
         """Composes the string to be used for generating the key for the room"""
