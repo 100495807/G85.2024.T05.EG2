@@ -2,16 +2,16 @@ import json
 from .HotelManagementException import HotelManagementException
 from .HotelReservation import HotelReservation
 
+
 class HotelManager:
     def __init__(self):
         pass
 
-    def validatecreditcard( self, x ):
-        # PLEASE INCLUDE HERE THE CODE FOR VALIDATING THE GUID
-        # RETURN TRUE IF THE GUID IS RIGHT, OR FALSE IN OTHER CASE
-        return True
+    def validatecreditcard(self, x):
+        num = map(int, str(x))
+        return sum(num[::-2] + [sum(divmod(d * 2, 10)) for d in num[-2::-2]]) % 10 == 0
 
-    def ReaddatafromJSOn( self, fi):
+    def ReaddatafromJSOn(self, fi):
 
         try:
             with open(fi) as f:
@@ -21,11 +21,11 @@ class HotelManager:
         except json.JSONDecodeError as e:
             raise HotelManagementException("JSON Decode Error - Wrong JSON Format") from e
 
-
         try:
             c = DATA["CreditCard"]
             p = DATA["phoneNumber"]
-            req = HotelReservation(IDCARD="12345678Z",creditcardNumb=c,nAMeAndSURNAME="John Doe",phonenumber=p,room_type="single",numdays=3)
+            req = HotelReservation(IDCARD="12345678Z", creditcardNumb=c, nAMeAndSURNAME="John Doe", phonenumber=p,
+                                   room_type="single", numdays=3)
         except KeyError as e:
             raise HotelManagementException("JSON Decode Error - Invalid JSON Key") from e
         if not self.validatecreditcard(c):
