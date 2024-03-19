@@ -2,6 +2,7 @@
 import hashlib
 import json
 from datetime import datetime
+from HotelManagementException import HotelManagementException
 
 class HotelReservation:
     def __init__(self, IDCARD, creditcardNumb, nAMeAndSURNAME, phonenumber, room_type,numdays):
