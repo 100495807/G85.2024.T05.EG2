@@ -43,17 +43,17 @@ class HotelReservation:
 
 
     def room_reservation(credit_card, name_surname, id_card, phone_number, room_type, arrival_date, num_days):
-    try:
-        reservation = HotelReservation(id_card, credit_card, name_surname, phone_number, room_type, num_days)
-        localizer = reservation.LOCALIZER
+        try:
+            reservation = HotelReservation(id_card, credit_card, name_surname, phone_number, room_type, num_days)
+            localizer = reservation.LOCALIZER
 
-        # Almacenar los datos de la reserva en un archivo
-        with open("reservations.txt", "a") as file:
-            file.write(str(reservation) + "\n")
+            # Almacenar los datos de la reserva en un archivo
+            with open("reservations.txt", "a") as file:
+                file.write(str(reservation) + "\n")
 
-        return localizer  # Devuelve el localizador
-    except HotelManagementException as e:
-        raise HotelManagementException("Error: " + str(e))
+            return localizer  # Devuelve el localizador
+        except HotelManagementException as e:
+            raise HotelManagementException("Error: " + str(e))
 
 # Ejemplo de uso:
 try:
