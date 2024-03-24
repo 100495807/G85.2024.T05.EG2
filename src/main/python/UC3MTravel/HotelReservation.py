@@ -1,11 +1,11 @@
-
 import hashlib
 import json
 from datetime import datetime
 from HotelManagementException import HotelManagementException
 
+
 class HotelReservation:
-    def __init__(self, IDCARD, creditcardNumb, nAMeAndSURNAME, phonenumber, room_type,numdays):
+    def __init__(self, IDCARD, creditcardNumb, nAMeAndSURNAME, phonenumber, room_type, numdays):
         self.__crEDITcardnumber = creditcardNumb
         self.__idcard = IDCARD
         justnow = datetime.utcnow()
@@ -27,10 +27,9 @@ class HotelReservation:
         if self.__roomtype not in ['single', 'double', 'suite']:
             raise HotelManagementException("Tipo de habitación inválido")
 
-
     def __str__(self):
         """return a json string with the elements required to calculate the localizer"""
-        #VERY IMPORTANT: JSON KEYS CANNOT BE RENAMED
+        # VERY IMPORTANT: JSON KEYS CANNOT BE RENAMED
         json_info = {"id_card": self.__idcard,
                      "name_surname": self.__NAME_SURNAME,
                      "credit_card": self.__crEDITcardnumber,
@@ -41,8 +40,7 @@ class HotelReservation:
                      }
         return "HotelReservation:" + json_info.__str__()
 
-
-    def room_reservation(credit_card, name_surname, id_card, phone_number, room_type, arrival_date, num_days):
+    def room_reservation(self, credit_card, name_surname, id_card, phone_number, room_type, num_days):
         try:
             reservation = HotelReservation(id_card, credit_card, name_surname, phone_number, room_type, num_days)
             localizer = reservation.LOCALIZER
@@ -55,31 +53,37 @@ class HotelReservation:
         except HotelManagementException as e:
             raise HotelManagementException("Error: " + str(e))
 
+
 # Ejemplo de uso:
 try:
-    localizer = room_reservation("1234567890123456", "Lola Montero", "123456789", "123456789", "single", "01/07/2024", 3)
+    hotel_booking = HotelReservation("123456789", "1234567890123456", "Lola Montero", "123456789", "single", 3)
+    localizer = hotel_booking.room_reservation("1234567890123456","Lola Montero", "123456789", "123456789", "single", 3)
     print("Localizador de reserva:", localizer)
 except HotelManagementException as e:
     print("Error al realizar la reserva:", e)
 
 
-
     @property
     def CREDITCARD(self):
         return self.__crEDITcardnumber
+
+
     @CREDITCARD.setter
     def CREDITCARD(self, value):
         self.__crEDITcardnumber = value
 
+
     @property
     def IDCARD(self):
         return self.__idcard
+
+
     @IDCARD.setter
     def IDCARD(self, value):
         self.__idcard = value
 
 
     @property
-    def LOCALIZER( self ):
+    def LOCALIZER(self):
         """Returns the md5 signature"""
         return hashlib.md5(self.__str__().encode()).hexdigest()
