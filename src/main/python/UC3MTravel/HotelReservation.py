@@ -1,14 +1,13 @@
 import hashlib
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from HotelManagementException import HotelManagementException
-
 
 class HotelReservation:
     def __init__(self, IDCARD, creditcardNumb, nAMeAndSURNAME, phonenumber, room_type, numdays):
         self.__crEDITcardnumber = creditcardNumb
         self.__idcard = IDCARD
-        justnow = datetime.utcnow()
+        justnow = datetime.now(timezone.utc)  # Utilizando datetime.now(timezone.utc) en lugar de datetime.utcnow()
         self.__ARRIVAL = datetime.timestamp(justnow)
         self.__NAME_SURNAME = nAMeAndSURNAME
         self.__phonenumber = phonenumber
@@ -40,6 +39,11 @@ class HotelReservation:
                      }
         return "HotelReservation:" + json_info.__str__()
 
+    @property
+    def LOCALIZER(self):
+        """Returns the md5 signature"""
+        return hashlib.md5(self.__str__().encode()).hexdigest()
+
     def room_reservation(self, credit_card, name_surname, id_card, phone_number, room_type, num_days):
         try:
             reservation = HotelReservation(id_card, credit_card, name_surname, phone_number, room_type, num_days)
@@ -61,29 +65,3 @@ try:
     print("Localizador de reserva:", localizer)
 except HotelManagementException as e:
     print("Error al realizar la reserva:", e)
-
-
-    @property
-    def CREDITCARD(self):
-        return self.__crEDITcardnumber
-
-
-    @CREDITCARD.setter
-    def CREDITCARD(self, value):
-        self.__crEDITcardnumber = value
-
-
-    @property
-    def IDCARD(self):
-        return self.__idcard
-
-
-    @IDCARD.setter
-    def IDCARD(self, value):
-        self.__idcard = value
-
-
-    @property
-    def LOCALIZER(self):
-        """Returns the md5 signature"""
-        return hashlib.md5(self.__str__().encode()).hexdigest()
