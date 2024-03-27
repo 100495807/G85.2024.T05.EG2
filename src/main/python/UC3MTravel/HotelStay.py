@@ -5,6 +5,7 @@ from HotelManagementException import HotelManagementException
 import json
 from datetime import datetime, timedelta, timezone
 
+
 class HotelStay():
     def __init__(self, idcard, localizer, numdays, roomtype):
         self.__alg = "SHA-256"
@@ -101,7 +102,7 @@ try:
     stay = HotelStay(idcard="123456789A", localizer="ABC123", numdays=3, roomtype="standard")
 
     # Llamar a la función guest_arrival con el archivo de entrada simulado
-    clave_habitacion = stay.guest_arrival("datos_reserva.json")
+    clave_habitacion = stay.guest_arrival("prueba.json")
     print("Clave de habitación generada:", clave_habitacion)
 
 except HotelManagementException as e:
