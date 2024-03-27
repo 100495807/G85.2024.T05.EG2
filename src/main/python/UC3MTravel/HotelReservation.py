@@ -29,8 +29,8 @@ class HotelReservation:
     def __str__(self):
         """return a json string with the elements required to calculate the localizer"""
         # VERY IMPORTANT: JSON KEYS CANNOT BE RENAMED
-        json_info = {"id_card": self.__idcard,
-                     "name_surname": self.__NAME_SURNAME,
+        json_info = {"IdCard": self.__idcard,
+                     "nameSurname": self.__NAME_SURNAME,
                      "credit_card": self.__crEDITcardnumber,
                      "phone_number:": self.__phonenumber,
                      "arrival_date": self.__ARRIVAL,
@@ -44,13 +44,13 @@ class HotelReservation:
         """Returns the md5 signature"""
         return hashlib.md5(self.__str__().encode()).hexdigest()
 
-    def room_reservation(self, credit_card, name_surname, id_card, phone_number, room_type, num_days):
+    def room_reservation(self, credit_card, name_surname, IdCard, nameSurname, room_type, num_days):
         try:
-            reservation = HotelReservation(id_card, credit_card, name_surname, phone_number, room_type, num_days)
+            reservation = HotelReservation(IdCard, credit_card, name_surname, nameSurname, room_type, num_days)
             localizer = reservation.LOCALIZER
 
             # Almacenar los datos de la reserva en un archivo
-            with open("reservations.txt", "a") as file:
+            with open("prueba.json", "a") as file:
                 file.write(str(reservation) + "\n")
 
             return localizer  # Devuelve el localizador
