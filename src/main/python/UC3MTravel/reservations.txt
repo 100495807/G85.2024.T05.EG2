@@ -1,6 +1,0 @@
-HotelReservation:{'id_card': '123456789', 'name_surname': 'Lola Montero', 'credit_card': '1234567890123456', 'phone_number:': '123456789', 'arrival_date': 1711464575.289142, 'num_days': 3, 'room_type': 'single'}
-HotelReservation:{'id_card': '123456789', 'name_surname': 'Lola Montero', 'credit_card': '1234567890123456', 'phone_number:': '123456789', 'arrival_date': 1711468277.922892, 'num_days': 3, 'room_type': 'single'}
-HotelReservation:{'id_card': '123456789', 'name_surname': 'Lola Montero', 'credit_card': '1234567890123456', 'phone_number:': '123456789', 'arrival_date': 1711468888.97743, 'num_days': 3, 'room_type': 'single'}
-HotelReservation:{'id_card': '123456789', 'name_surname': 'Lola Montero', 'credit_card': '1234567890123456', 'phone_number:': '123456789', 'arrival_date': 1711470785.633855, 'num_days': 3, 'room_type': 'single'}
-HotelReservation:{'id_card': '123456789', 'name_surname': 'Lola Montero', 'credit_card': '1234567890123456', 'phone_number:': '123456789', 'arrival_date': 1711477494.536124, 'num_days': 3, 'room_type': 'single'}
-HotelReservation:{'id_card': '123456789', 'name_surname': 'Lola Montero', 'credit_card': '1234567890123456', 'phone_number:': '123456789', 'arrival_date': 1711535003.825444, 'num_days': 3, 'room_type': 'single'}

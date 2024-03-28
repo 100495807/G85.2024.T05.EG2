@@ -73,8 +73,8 @@ def room_reservation(creditcardNumb, nAMeAndSURNAME, IDCARD, phonenumber, room_t
         reserva = HotelReservation(creditcardNumb, nAMeAndSURNAME, IDCARD, phonenumber, room_type, arrival_date, num_days)
         localizer = reserva.LOCALIZER
         # Verificar si el archivo existe y no está vacío
-        if os.path.exists("prueba.json") and os.path.getsize("prueba.json") > 0:
-            with open("prueba.json", "r") as file:
+        if os.path.exists("reservations.json") and os.path.getsize("reservations.json") > 0:
+            with open("reservations.json", "r") as file:
                 data = json.load(file)
         else:
             data = {"reservations": []}
@@ -84,7 +84,7 @@ def room_reservation(creditcardNumb, nAMeAndSURNAME, IDCARD, phonenumber, room_t
             if reservation["id_card"] == IDCARD:
                 raise HotelManagementException("El cliente ya tiene una reserva")
 
-        # Agregar el localizador a los datos de la reserva
+        # Agregar el localizador a los datos  de la reserva
         reservation_data = {
             "credit_card": creditcardNumb,
             "name_surname": nAMeAndSURNAME,
@@ -100,7 +100,7 @@ def room_reservation(creditcardNumb, nAMeAndSURNAME, IDCARD, phonenumber, room_t
         data["reservations"].append(reservation_data)
 
         # Almacenar los datos actualizados en el archivo JSON
-        with open("prueba.json", "w") as file:
+        with open("reservations.json", "w") as file:
             json.dump(data, file, indent=4)
 
 
@@ -110,9 +110,10 @@ def room_reservation(creditcardNumb, nAMeAndSURNAME, IDCARD, phonenumber, room_t
 
 # Ejemplo de uso:
 try:
-    localizador = room_reservation("5256783371569576", "Lola Montero", "12345678B", "123456781", "single",
+    localizador = room_reservation("5256783371569576", "Lola Montero", "48160293H", "123456781", "single",
                                                 "13/12/2024", 5)
     print("Localizador de reserva:", localizador)
 
 except HotelManagementException as e:
     print("Error al realizar la reserva:", e)
+
