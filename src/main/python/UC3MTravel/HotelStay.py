@@ -36,12 +36,21 @@ class HotelStay():
                 data = json.load(file)
 
                 # Verificar la estructura del JSON
-                if not all(key in data for key in ("Localizer", "IdCard")):
+                if "reservations" not in data or not all(key in data["reservations"][0] for key in (
+                "credit_card", "name_surname", "id_card", "phone_number", "room_type", "arrival_date", "num_days",
+                "localizer")):
                     raise HotelManagementException("El JSON no tiene la estructura esperada")
 
                 # Verificar que el localizador está almacenado en el archivo de reservas (simulado)
                 # y que coincide con los datos en el archivo
-                if not self.__localizer == data["Localizer"]:
+                if "reservations" not in data or not all(key in data["reservations"][0] for key in (
+                "credit_card", "name_surname", "id_card", "phone_number", "room_type", "arrival_date", "num_days",
+                "localizer")):
+                    raise HotelManagementException("El JSON no tiene la estructura esperada")
+
+                # Verificar que el localizador está almacenado en el archivo de reservas (simulado)
+                # y que coincide con los datos en el archivo
+                if not self.__localizer == data["reservations"][0]["localizer"]:
                     raise HotelManagementException("El localizador no se corresponde con los datos almacenados")
 
                 # Verificar que la fecha de llegada coincide con la fecha actual
@@ -99,7 +108,7 @@ class HotelStay():
 
 try:
     # Crear una instancia de HotelStay con datos simulados
-    stay = HotelStay(idcard="123456789A", localizer="ABC123", numdays=3, roomtype="standard")
+    stay = HotelStay(idcard="12345678B", localizer="35311b555343320a17d88248f976313a", numdays=5, roomtype="single")
 
     # Llamar a la función guest_arrival con el archivo de entrada simulado
     clave_habitacion = stay.guest_arrival("prueba.json")
@@ -107,3 +116,7 @@ try:
 
 except HotelManagementException as e:
     print("Error:", e)
+except FileNotFoundError:
+    print("Error: No se encuentra el archivo de datos 'prueba.json'")
+except json.JSONDecodeError:
+    print("Error: El archivo 'prueba.json' no tiene formato JSON")
