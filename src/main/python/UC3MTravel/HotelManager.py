@@ -1,6 +1,5 @@
 import json
 from HotelManagementException import HotelManagementException
-from HotelReservation import HotelReservation
 #test algoritmo luhn, test localizer e idcard,
 
 class HotelManager:
@@ -58,8 +57,7 @@ class HotelManager:
         try:
             c = DATA["CreditCard"]
             p = DATA["phoneNumber"]
-            req = HotelReservation(IDCARD="12345678Z", creditcardNumb=c, nAMeAndSURNAME="John Doe", phonenumber=p,
-                                   room_type="single", numdays=3)
+
         except KeyError as e:
             raise HotelManagementException("JSON Decode Error - Invalid JSON Key") from e
         if not self.validatecreditcard(c):
