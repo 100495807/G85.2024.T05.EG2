@@ -1,1 +1,14 @@
-HotelReservation:{'IdCard': '123456789', 'name_surname': 'Lola Montero', 'credit_card': '1234567890123456', 'phone_number:': '123456789', 'arrival_date': 1711538167.971352, 'num_days': 3, 'room_type': 'single'}
+{
+    "reservations": [
+        {
+            "credit_card": "5256783371569576",
+            "name_surname": "Lola Montero",
+            "id_card": "12345678B",
+            "phone_number": "123456781",
+            "room_type": "single",
+            "arrival_date": "13/12/2024",
+            "num_days": 5,
+            "localizer": "35311b555343320a17d88248f976313a"
+        }
+    ]
+}
