@@ -3,7 +3,7 @@
 import hashlib
 from HotelManagementException import HotelManagementException
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 
 class HotelStay():
@@ -12,25 +12,61 @@ class HotelStay():
         self.__type = roomtype
         self.__idcard = idcard
         self.__localizer = localizer
-        self.__arrival = datetime.now(timezone.utc)
+        self.__arrival = datetime.now().date()
         #timestamp is represented in seconds.miliseconds
         #to add the number of days we must express numdays in seconds
         self.__departure = self.__arrival + timedelta(days=numdays)
-        self.__room_key = self.__signature_string()
+        self.__room_key = self.signature_string()
 
-    def __signature_string(self):
+    def signature_string(self):
         """Composes the string to be used for generating the key for the room"""
         return "{alg:" + self.__alg + ",typ:" + self.__type + ",localizer:" + \
-            self.__localizer + ",arrival:" + self.__arrival.strftime("%Y-%m-%d %H:%M:%S") + \
-            ",departure:" + self.__departure.strftime("%Y-%m-%d %H:%M:%S") + "}"
+            self.__localizer + ",arrival:" + self.__arrival.strftime("%Y-%m-%d") + \
+            ",departure:" + self.__departure.strftime("%Y-%m-%d") + "}"
 
+    @property
+    def idCard(self):
+        """Property that represents the product_id of the patient"""
+        return self.__idcard
+
+    @idCard.setter
+    def icCard(self, value):
+        self.__idcard = value
+
+    @property
+    def localizer(self):
+        """Property that represents the order_id"""
+        return self.__localizer
+
+    @localizer.setter
+    def localizer(self, value):
+        self.__localizer = value
+
+    @property
+    def arrival(self):
+        """Property that represents the phone number of the client"""
+        return self.__arrival
+
+    def room_key(self):
+        """Returns the sha256 signature of the date"""
+        return hashlib.sha256(self.signature_string().encode()).hexdigest()
+
+    @property
+    def departure(self):
+        """Returns the issued at value"""
+        return self.__departure
+
+    @departure.setter
+    def departure(self, value):
+        self.__departure = value
+'''
     def guest_arrival(self, input_file):
-        '''// El archivo de entrada es una cadena con la ruta del archivo
+        // El archivo de entrada es una cadena con la ruta del archivo
             descrita en HM-FR-02-I1
         // Devuelve un String en hexadecimal que representa el código de
             la habitación (clave que será necesaria para HM-FR-02-O1)
         // En caso de error, devuelve un HotelManagementException
-            representa HM-FR-02-O3'''
+            representa HM-FR-02-O3
         try:
             with open(input_file, 'r') as file:
                 data = json.load(file)
@@ -67,51 +103,7 @@ class HotelStay():
             raise HotelManagementException("El archivo no tiene formato JSON")
         except HotelManagementException as e:
             raise e
+'''
 
-    @property
-    def idCard(self):
-        """Property that represents the product_id of the patient"""
-        return self.__idcard
 
-    @idCard.setter
-    def icCard(self, value):
-        self.__idcard = value
 
-    @property
-    def localizer(self):
-        """Property that represents the order_id"""
-        return self.__localizer
-
-    @localizer.setter
-    def localizer(self, value):
-        self.__localizer = value
-
-    @property
-    def arrival(self):
-        """Property that represents the phone number of the client"""
-        return self.__arrival
-
-    @property
-    def ROOM_KEY(self):
-        """Returns the sha256 signature of the date"""
-        return hashlib.sha256(self.__signature_string().encode()).hexdigest()
-
-    @property
-    def departure(self):
-        """Returns the issued at value"""
-        return self.__departure
-
-    @departure.setter
-    def departure(self, value):
-        self.__departure = value
-
-try:
-    # Crear una instancia de HotelStay con datos simulados
-    stay = HotelStay(idcard="12345678B", localizer="35311b555343320a17d88248f976313a", numdays=5, roomtype="single")
-
-    # Llamar a la función guest_arrival con el archivo de entrada simulado
-    clave_habitacion = stay.guest_arrival("prueba.json")
-    print("Clave de habitación generada:", clave_habitacion)
-
-except HotelManagementException as e:
-    print("Error:", e)
