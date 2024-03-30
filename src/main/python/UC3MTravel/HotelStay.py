@@ -24,7 +24,7 @@ class HotelStay():
             self.__localizer + ",arrival:" + self.__arrival.strftime("%Y-%m-%d %H:%M:%S") + \
             ",departure:" + self.__departure.strftime("%Y-%m-%d %H:%M:%S") + "}"
 
-    def guest_arrival (self, input_file):
+    def guest_arrival(self, input_file):
         '''// El archivo de entrada es una cadena con la ruta del archivo
             descrita en HM-FR-02-I1
         // Devuelve un String en hexadecimal que representa el código de
@@ -99,7 +99,7 @@ class HotelStay():
 
 try:
     # Crear una instancia de HotelStay con datos simulados
-    stay = HotelStay(idcard="123456789A", localizer="ABC123", numdays=3, roomtype="standard")
+    stay = HotelStay(idcard="12345678B", localizer="6dd568c243dd6bcf41aab2712650a04a", numdays=5, roomtype="single")
 
     # Llamar a la función guest_arrival con el archivo de entrada simulado
     clave_habitacion = stay.guest_arrival("prueba.json")
