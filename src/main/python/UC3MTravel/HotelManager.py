@@ -48,6 +48,30 @@ class HotelManager:
         # Validar el número
         return sum_digits % 10 == 0
 
+    def validar_dni(self, dni):
+        """
+        Valida un número de DNI español.
+
+        Args:
+        - dni (str): Número de DNI a validar.
+
+        Returns:
+        - bool: True si el DNI es válido, False si no lo es.
+        """
+        tabla_letras = "TRWAGMYFPDXBNJZSQVHLCKE"
+        dni = dni.upper()
+        if len(dni) != 9:
+            return False
+        try:
+            numero = int(dni[:-1])
+        except ValueError:
+            return False
+        letra = dni[-1]
+        if tabla_letras[numero % 23] == letra:
+            return True
+        else:
+            return False
+
     def ReaddatafromJSOn(self, fi):
 
         try:
@@ -80,7 +104,7 @@ class HotelManager:
             if len(nAMeAndSURNAME.split()) < 2 or len(nAMeAndSURNAME) < 10 or len(nAMeAndSURNAME) > 50:
                 raise HotelManagementException("La cadena del nombre y apellidos no es válida")
 
-            if not re.match(r'^\d{8}[A-Za-z]$', IDCARD):
+            if not self.validar_dni(IDCARD):
                 raise HotelManagementException("DNI inválido")
 
             if not phonenumber.isdigit() or len(phonenumber) != 9:
@@ -219,7 +243,7 @@ class HotelManager:
 # Ejemplo de uso:
 try:
 
-    localizador = HotelManager().room_reservation("5256783371569576", "Lola Montero", "12345678B", "123456781",
+    localizador = HotelManager().room_reservation("5256783371569576", "Lola Montero", "12345678Z", "123456781",
                                                   "single",
                                                   "13/12/2024", 5)
     print("Localizador de reserva:", localizador)
