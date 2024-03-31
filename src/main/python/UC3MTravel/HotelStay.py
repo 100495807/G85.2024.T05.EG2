@@ -47,6 +47,7 @@ class HotelStay():
         """Property that represents the phone number of the client"""
         return self.__arrival
 
+    @property
     def room_key(self):
         """Returns the sha256 signature of the date"""
         return hashlib.sha256(self.signature_string().encode()).hexdigest()
