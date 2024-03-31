@@ -20,6 +20,10 @@ class HotelManager:
           True si la tarjeta de crédito es válida, False si no.
         """
 
+        # Comprobar si la cadena contiene solo dígitos
+        if not x.isdigit():
+            return False
+
         # Invertir el número
         reversed_number = x[::-1]
 
@@ -113,6 +117,17 @@ class HotelManager:
             if room_type not in ['single', 'double', 'suite']:
                 raise HotelManagementException("Tipo de habitación inválido")
 
+            # Verificar si num_days es una cadena vacía
+            if isinstance(num_days, str) and not num_days.strip():
+                raise HotelManagementException("Número de noches inválido. Debe estar entre 1 y 10.")
+
+            # Convertir num_days a entero si es una cadena
+            try:
+                num_days = int(num_days)
+            except ValueError:
+                raise HotelManagementException("Número de noches inválido. Debe estar entre 1 y 10.")
+
+            # Validar el rango de num_days
             if not 1 <= num_days <= 10:
                 raise HotelManagementException("Número de noches inválido. Debe estar entre 1 y 10.")
 
