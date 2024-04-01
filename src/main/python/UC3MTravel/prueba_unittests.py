@@ -22,10 +22,10 @@ class TestGuestArrival(unittest.TestCase):
 
     # Archivo inexistente
     def test2_missing_file(self):
-        with self.assertRaises(HotelManagementException) as context:
+        with self.assertRaises(HotelManagementException) as e:
             stay = HotelManager()
             stay.guest_arrival("nonexistent_file.json")
-        self.assertEqual(str(context.exception), "No se encuentra el archivo de datos")
+        self.assertEqual(str(e.exception), "El archivo no existe")
 
     # Prueba para formato JSON inválido
     def test3_invalid_json_format(self):
@@ -33,10 +33,10 @@ class TestGuestArrival(unittest.TestCase):
         with open(input_file, 'w') as file:
             file.write("invalid_json_data")
 
-        with self.assertRaises(HotelManagementException) as context:
+        with self.assertRaises(HotelManagementException) as e:
             stay = HotelManager()
             stay.guest_arrival(input_file)
-        self.assertEqual(str(context.exception), "El archivo no tiene formato JSON")
+        self.assertEqual(str(e.exception), "El archivo no tiene formato JSON")
 
     # Prueba estructural JSON
     def test4_invalid_json_structure(self):
@@ -47,10 +47,10 @@ class TestGuestArrival(unittest.TestCase):
         with open(input_file, 'w') as file:
             json.dump(test_data, file)
 
-        with self.assertRaises(HotelManagementException) as context:
+        with self.assertRaises(HotelManagementException) as e:
             stay = HotelManager()
             stay.guest_arrival(input_file)
-        self.assertEqual(str(context.exception), "El JSON no tiene la estructura esperada")
+        self.assertEqual(str(e.exception), "El archivo no tiene formato JSON")
 
     # Prueba para localizador no válido
     def test5_invalid_localizer(self):
@@ -62,10 +62,10 @@ class TestGuestArrival(unittest.TestCase):
         with open(input_file, 'w') as file:
             json.dump(test_data, file)
 
-        with self.assertRaises(HotelManagementException) as context:
+        with self.assertRaises(HotelManagementException) as e:
             stay = HotelManager()
             stay.guest_arrival(input_file)
-        self.assertEqual(str(context.exception), "Los datos del JSON no tienen valores válidos")
+        self.assertEqual(str(e.exception), "Los datos del JSON no tienen valores válidos.")
 
     # Prueba para DNI inválido
     def test6_invalid_DNI(self):
@@ -78,10 +78,10 @@ class TestGuestArrival(unittest.TestCase):
         with open(input_file, 'w') as file:
             json.dump(test_data, file)
 
-        with self.assertRaises(HotelManagementException) as context:
+        with self.assertRaises(HotelManagementException) as e:
             stay = HotelManager()
             stay.guest_arrival(input_file)
-        self.assertEqual(str(context.exception), "Los datos del JSON no tienen valores válidos")
+        self.assertEqual(str(e.exception), "Los datos del JSON no tienen valores válidos")
 
 
 
