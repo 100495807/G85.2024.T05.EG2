@@ -12,7 +12,7 @@ class TestGuestArrival(TestCase):
 
     # Prueba para datos válidos
     def test1_valid_input(self):
-        input_file = "../JsonFiles/input_eg2.json"
+        input_file = "../../JsonFiles/input_eg2.json"
         test_data = {
             "Localizer": "04a90f1ce1fb8e6cc213fd6480803141",
             "IdCard": "12345678Z"

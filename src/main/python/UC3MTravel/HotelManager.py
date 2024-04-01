@@ -8,7 +8,6 @@ from pathlib import Path
 JSON_FILES_PATH = str(Path.home()) + "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/"
 
 
-
 class HotelManager:
     def __init__(self):
         pass
