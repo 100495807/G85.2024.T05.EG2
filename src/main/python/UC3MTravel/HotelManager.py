@@ -254,7 +254,7 @@ class HotelManager:
             fecha_salida_prevista = datetime.strptime(estancias[room_key]["departure"], "%Y-%m-%dT%H:%M:%S.%fZ")
 
             # Obtener la fecha y hora actual
-            fecha_salida_actual = datetime.utcnow()
+            fecha_salida_actual = datetime.now().date()
 
             # Comprobar si la fecha actual coincide con la fecha de salida prevista
             if fecha_salida_prevista != fecha_salida_actual:
