@@ -20,6 +20,10 @@ class HotelManager:
           True si la tarjeta de crédito es válida, False si no.
         """
 
+        # Comprobar si la cadena contiene solo dígitos
+        if not x.isdigit():
+            return False
+
         # Invertir el número
         reversed_number = x[::-1]
 
@@ -47,6 +51,30 @@ class HotelManager:
 
         # Validar el número
         return sum_digits % 10 == 0
+
+    def validar_dni(self, dni):
+        """
+        Valida un número de DNI español.
+
+        Args:
+        - dni (str): Número de DNI a validar.
+
+        Returns:
+        - bool: True si el DNI es válido, False si no lo es.
+        """
+        tabla_letras = "TRWAGMYFPDXBNJZSQVHLCKE"
+        dni = dni.upper()
+        if len(dni) != 9:
+            return False
+        try:
+            numero = int(dni[:-1])
+        except ValueError:
+            return False
+        letra = dni[-1]
+        if tabla_letras[numero % 23] == letra:
+            return True
+        else:
+            return False
 
     def ReaddatafromJSOn(self, fi):
 
@@ -80,7 +108,7 @@ class HotelManager:
             if len(nAMeAndSURNAME.split()) < 2 or len(nAMeAndSURNAME) < 10 or len(nAMeAndSURNAME) > 50:
                 raise HotelManagementException("La cadena del nombre y apellidos no es válida")
 
-            if not re.match(r'^\d{8}[A-Za-z]$', IDCARD):
+            if not self.validar_dni(IDCARD):
                 raise HotelManagementException("DNI inválido")
 
             if not phonenumber.isdigit() or len(phonenumber) != 9:
@@ -89,6 +117,17 @@ class HotelManager:
             if room_type not in ['single', 'double', 'suite']:
                 raise HotelManagementException("Tipo de habitación inválido")
 
+            # Verificar si num_days es una cadena vacía
+            if isinstance(num_days, str) and not num_days.strip():
+                raise HotelManagementException("Número de noches inválido. Debe estar entre 1 y 10.")
+
+            # Convertir num_days a entero si es una cadena
+            try:
+                num_days = int(num_days)
+            except ValueError:
+                raise HotelManagementException("Número de noches inválido. Debe estar entre 1 y 10.")
+
+            # Validar el rango de num_days
             if not 1 <= num_days <= 10:
                 raise HotelManagementException("Número de noches inválido. Debe estar entre 1 y 10.")
 
@@ -219,7 +258,7 @@ class HotelManager:
 # Ejemplo de uso:
 try:
 
-    localizador = HotelManager().room_reservation("5256783371569576", "Lola Montero", "12345678B", "123456781",
+    localizador = HotelManager().room_reservation("5256783371569576", "Lola Montero", "12345678Z", "123456781",
                                                   "single",
                                                   "13/12/2024", 5)
     print("Localizador de reserva:", localizador)
@@ -237,3 +276,39 @@ try:
 
 except HotelManagementException as e:
     print("Error:", e)
+
+
+    def guest_checkout(self, room_key):
+        try:
+            # Verificar si el código de habitación es un número hexadecimal válido
+            if not isinstance(room_key, str) or len(room_key) != 64 or not all(c in "0123456789abcdefABCDEF" for c in room_key):
+                raise HotelManagementException("La cadena no contiene un código de habitación válido")
+
+            # Leer la información de las estancias desde el archivo
+            with open("reservations.json", "r") as file:
+                estancias = json.load(file)
+
+            # Verificar si el código de habitación existe en las estancias registradas
+            if room_key not in estancias:
+                raise HotelManagementException("El código de habitación no estaba registrado")
+
+            # Obtener la fecha de salida prevista de la estancia
+            fecha_salida_prevista = datetime.strptime(estancias[room_key]["departure"], "%Y-%m-%dT%H:%M:%S.%fZ")
+
+            # Obtener la fecha y hora actual
+            fecha_salida_actual = datetime.utcnow()
+
+            # Comprobar si la fecha actual coincide con la fecha de salida prevista
+            if fecha_salida_prevista != fecha_salida_actual:
+                raise HotelManagementException("La fecha de salida no es válida")
+
+            # Registrar la salida en el archivo de salidas
+            with open("salidas.txt", "a") as file:
+                file.write(f"Fecha de salida: {fecha_salida_actual.strftime('%Y-%m-%d %H:%M:%S')} UTC, Código de habitación: {room_key}\n")
+
+            return True
+
+        except HotelManagementException as e:
+            raise e
+        except Exception as e:
+            raise HotelManagementException("Error de procesamiento interno al procesar el código: " + str(e))
