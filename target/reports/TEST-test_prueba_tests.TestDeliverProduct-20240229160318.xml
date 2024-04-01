@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test_prueba_tests.TestDeliverProduct-20240229160318" tests="1" file="test_prueba_tests.py" time="0.001" timestamp="2024-02-29T16:03:18" failures="0" errors="0" skipped="0">
+	<testcase classname="test_prueba_tests.TestDeliverProduct" name="test_hotel_reservation_uk1" time="0.001" timestamp="2024-02-29T16:03:18"/>
+</testsuite>

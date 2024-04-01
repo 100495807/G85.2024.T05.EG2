@@ -1,0 +1,35 @@
+
+Running tests...
+----------------------------------------------------------------------
+E
+======================================================================
+ERROR [0.006s]: test_prueba_tests (unittest.loader._FailedTest.test_prueba_tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Jorge\AppData\Local\Programs\Python\Python312\Lib\unittest\case.py", line 58, in testPartExecutor
+    yield
+  File "C:\Users\Jorge\AppData\Local\Programs\Python\Python312\Lib\unittest\case.py", line 636, in run
+    self._callTestMethod(testMethod)
+    ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Jorge\AppData\Local\Programs\Python\Python312\Lib\unittest\case.py", line 589, in _callTestMethod
+    if method() is not None:
+    ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Jorge\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 33, in testFailure
+    raise self._exception
+    ^^^^^^^^^^^^^^^^^
+ImportError: Failed to import test module: test_prueba_tests
+Traceback (most recent call last):
+  File "C:\Users\Jorge\AppData\Local\Programs\Python\Python312\Lib\unittest\loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\jorge\documents\github\g85.2024.t05.eg2\src\unittest\python\test_prueba_tests.py", line 3, in <module>
+    from prueba import sum
+ModuleNotFoundError: No module named 'prueba'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.031s
+
+FAILED (errors=1)
+
+Generating XML reports...

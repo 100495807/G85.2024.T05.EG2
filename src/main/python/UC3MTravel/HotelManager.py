@@ -203,12 +203,7 @@ class HotelManager:
             if not isinstance(dni_input, str) or len(dni_input) != 9:
                 raise HotelManagementException("Los datos del JSON no tienen valores válidos.")
 
-            jsonFilesDir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'JsonFiles'))
-            if not os.path.exists(jsonFilesDir):
-                os.makedirs(jsonFilesDir)
-
-            # Comprobamos si el fichero tiene contenido, en caso contrario lo creamos
-            file_path = os.path.join(jsonFilesDir, "reservations.json")
+            file_path = JSON_FILES_PATH + "reservations.json"
 
             with open(file_path, 'r') as file:
                 data = json.load(file)
@@ -252,7 +247,7 @@ class HotelManager:
                     raise HotelManagementException("La fecha de llegada no coincide con la fecha actual")
 
                 # Comprobamos si el fichero tiene contenido, en caso contrario lo creamos
-                file_path2 = os.path.join(jsonFilesDir, "estancias.json")
+                file_path2 = JSON_FILES_PATH + "estancias.json"
 
                 if os.path.exists(file_path2) and os.path.getsize(file_path2) > 0:
                     with open(file_path2, "r") as file:
