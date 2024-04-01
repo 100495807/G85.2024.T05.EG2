@@ -261,3 +261,39 @@ try:
 
 except HotelManagementException as e:
     print("Error:", e)
+
+
+    def guest_checkout(self, room_key):
+        try:
+            # Verificar si el código de habitación es un número hexadecimal válido
+            if not isinstance(room_key, str) or len(room_key) != 64 or not all(c in "0123456789abcdefABCDEF" for c in room_key):
+                raise HotelManagementException("La cadena no contiene un código de habitación válido")
+
+            # Leer la información de las estancias desde el archivo
+            with open("reservations.json", "r") as file:
+                estancias = json.load(file)
+
+            # Verificar si el código de habitación existe en las estancias registradas
+            if room_key not in estancias:
+                raise HotelManagementException("El código de habitación no estaba registrado")
+
+            # Obtener la fecha de salida prevista de la estancia
+            fecha_salida_prevista = datetime.strptime(estancias[room_key]["departure"], "%Y-%m-%dT%H:%M:%S.%fZ")
+
+            # Obtener la fecha y hora actual
+            fecha_salida_actual = datetime.utcnow()
+
+            # Comprobar si la fecha actual coincide con la fecha de salida prevista
+            if fecha_salida_prevista != fecha_salida_actual:
+                raise HotelManagementException("La fecha de salida no es válida")
+
+            # Registrar la salida en el archivo de salidas
+            with open("salidas.txt", "a") as file:
+                file.write(f"Fecha de salida: {fecha_salida_actual.strftime('%Y-%m-%d %H:%M:%S')} UTC, Código de habitación: {room_key}\n")
+
+            return True
+
+        except HotelManagementException as e:
+            raise e
+        except Exception as e:
+            raise HotelManagementException("Error de procesamiento interno al procesar el código: " + str(e))
