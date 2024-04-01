@@ -1,13 +1,17 @@
 import os
 import unittest
+from pathlib import Path
 from HotelManager import HotelManager
 from HotelManagementException import HotelManagementException
+JSON_FILES_PATH = str(Path.home()) + "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/"
+file_store = JSON_FILES_PATH + "reservations.json"
 
 class TestHotelManager(unittest.TestCase):
 
     def setUp(self):
-        if os.path.isfile("../../../JsonFiles/reservations.json"):
-            os.remove("../../../JsonFiles/reservations.json")
+
+        if os.path.isfile(file_store):
+            os.remove(file_store)
     def test_TC1(self):
         # Caso de prueba para todos los datos válidos
         locator = HotelManager().room_reservation(
@@ -21,7 +25,7 @@ class TestHotelManager(unittest.TestCase):
         )
         self.assertEqual(locator, "04a90f1ce1fb8e6cc213fd6480803141")
 
-        with open("../../../JsonFiles/reservations.json", "r") as file:
+        with open(file_store, "r") as file:
             data = file.read()
 
         self.assertIn("12345678Z", data)  # Verificar si el DNI está en la reserva
@@ -477,5 +481,3 @@ class TestHotelManager(unittest.TestCase):
 
         self.assertEqual(str(e.exception), "Error: Número de noches inválido. Debe estar entre 1 y 10.")
 
-if __name__ == "__main__":
-    unittest.main()

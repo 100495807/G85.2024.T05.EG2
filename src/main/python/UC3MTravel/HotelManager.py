@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 from HotelManagementException import HotelManagementException
 from HotelReservation import HotelReservation
 from HotelStay import HotelStay
+from pathlib import Path
+JSON_FILES_PATH = str(Path.home()) + "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/"
 
 
 class HotelManager:
@@ -77,6 +79,8 @@ class HotelManager:
 
     def room_reservation(self, creditcardNumb, nAMeAndSURNAME, IDCARD, phonenumber, room_type, arrival_date, num_days):
 
+        file_store = JSON_FILES_PATH + "reservations.json"
+
         reserva = HotelReservation(creditcardNumb, nAMeAndSURNAME, IDCARD, phonenumber, room_type, arrival_date,
                                    num_days)
 
@@ -128,9 +132,8 @@ class HotelManager:
 
             # Verificar si el archivo existe y no está vacío
             arrival_date = arrival_date_aux
-            if os.path.exists("../../../JsonFiles/reservations.json") and os.path.getsize(
-                    "../../../JsonFiles/reservations.json") > 0:
-                with open("../../../JsonFiles/reservations.json", "r") as file:
+            if os.path.exists(file_store) and os.path.getsize(file_store) > 0:
+                with open(file_store, "r") as file:
                     data = json.load(file)
             else:
                 data = {"reservations": []}
@@ -156,7 +159,7 @@ class HotelManager:
             data["reservations"].append(reservation_data)
 
             # Almacenar los datos actualizados en el archivo JSON
-            with open("../../../JsonFiles/reservations.json", "w") as file:
+            with open(file_store, "w") as file:
                 json.dump(data, file, indent=4)
 
             return reserva.LOCALIZER
@@ -170,6 +173,7 @@ class HotelManager:
             la habitación (clave que será necesaria para HM-FR-02-O1)
         // En caso de error, devuelve un HotelManagementException
             representa HM-FR-02-O3'''
+
         try:
 
             with open(input_file, 'r') as file_input:
@@ -327,8 +331,9 @@ except HotelManagementException as e:
     print("Error al realizar la reserva:", e)
 
 try:
+    file_input = JSON_FILES_PATH + "input_eg2.json"
     # Crear una instancia de HotelStay con datos simulados
-    stay = HotelManager().guest_arrival("../../../JsonFiles/input_eg2.json")
+    stay = HotelManager().guest_arrival(file_input)
 
     # Llamar a la función guest_arrival con el archivo de entrada simulado
     print("Clave de habitación generada:", stay)
