@@ -1,11 +1,9 @@
 import json
 import os
-import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from HotelManagementException import HotelManagementException
 from HotelReservation import HotelReservation
 from HotelStay import HotelStay
-
 
 
 class HotelManager:
@@ -130,8 +128,9 @@ class HotelManager:
 
             # Verificar si el archivo existe y no está vacío
             arrival_date = arrival_date_aux
-            if os.path.exists("../JsonFiles/reservations.json") and os.path.getsize("../JsonFiles/reservations.json") > 0:
-                with open("../JsonFiles/reservations.json", "r") as file:
+            if os.path.exists("../../../JsonFiles/reservations.json") and os.path.getsize(
+                    "../../../JsonFiles/reservations.json") > 0:
+                with open("../../../JsonFiles/reservations.json", "r") as file:
                     data = json.load(file)
             else:
                 data = {"reservations": []}
@@ -157,7 +156,7 @@ class HotelManager:
             data["reservations"].append(reservation_data)
 
             # Almacenar los datos actualizados en el archivo JSON
-            with open("../JsonFiles/reservations.json", "w") as file:
+            with open("../../../JsonFiles/reservations.json", "w") as file:
                 json.dump(data, file, indent=4)
 
             return reserva.LOCALIZER
@@ -172,65 +171,107 @@ class HotelManager:
         // En caso de error, devuelve un HotelManagementException
             representa HM-FR-02-O3'''
         try:
+
             with open(input_file, 'r') as file_input:
-                data_input = json.load(file_input)
-                if len(data_input) != 2 or "Localizer" not in data_input or "IdCard" not in data_input:
+                try:
+                    entrada = json.load(file_input)
+
+                except json.JSONDecodeError:
+                    raise HotelManagementException("El archivo no tiene formato JSON")
+
+                if len(entrada) != 2 or "Localizer" not in entrada or "IdCard" not in entrada:
+                    raise HotelManagementException("El archivo no tiene formato JSON")
+
+                try:
+                    localizer_input = entrada["Localizer"]
+                    dni_input = entrada["IdCard"]
+                except json.JSONDecodeError:
                     raise HotelManagementException("El JSON no tiene la estructura esperada")
-                localizer_input = data_input["Localizer"]
-                dni_input = data_input["IdCard"]
+
+                dni = HotelManager()
+                if not dni.validar_dni(dni_input):
+                    raise HotelManagementException("Los datos del JSON no tienen valores válidos")
 
             if not isinstance(localizer_input, str) or len(localizer_input) != 32:
                 raise HotelManagementException("Los datos del JSON no tienen valores válidos.")
+
             if not isinstance(dni_input, str) or len(dni_input) != 9:
                 raise HotelManagementException("Los datos del JSON no tienen valores válidos.")
 
-            with open("../JsonFiles/reservations.json", 'r') as file:
+            jsonFilesDir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'JsonFiles'))
+            if not os.path.exists(jsonFilesDir):
+                os.makedirs(jsonFilesDir)
+
+            # Comprobamos si el fichero tiene contenido, en caso contrario lo creamos
+            file_path = os.path.join(jsonFilesDir, "reservations.json")
+
+            with open(file_path, 'r') as file:
                 data = json.load(file)
+                numDays = False
 
                 # Verificar que el localizador está almacenado en el archivo de reservas (simulado)
                 # y que coincide con los datos en el archivo
-                exite_el_localizer = False
+
                 for reservation in data["reservations"]:
                     if localizer_input == reservation["localizer"] and dni_input == reservation["id_card"]:
-                        exite_el_localizer = True
                         numDays = reservation["num_days"]
                         roomType = reservation["room_type"]
-                        arrivalDate = reservation["arrival_date"]
-                        break
-                if exite_el_localizer == False:
-                    raise HotelManagementException(
-                        "El localizador y el dni introducido no se corresponde con los datos almacenados")
+                        arrivalDay = reservation["arrival_date"]
 
-                estancia = HotelStay(dni_input, localizer_input, numDays, roomType)
+                        fecha_operable = datetime.strptime(arrivalDay, "%d/%m/%Y")
+                        n_days = int(reservation["num_days"])
+                        departure_day_operable = fecha_operable + timedelta(days=n_days)
+                        departure_day = departure_day_operable.strftime("%d/%m/%Y")
+                        break
+                    else:
+                        raise HotelManagementException(
+                            "El localizador y el dni introducido no se corresponde con los datos almacenados")
+
+                if not numDays:
+                    raise HotelManagementException("Los datos del JSON no tienen valores válidos")
+
+                try:
+                    estancia = HotelStay(dni_input, localizer_input, numDays, roomType)
+                    room_key = estancia.room_key
+
+                except:
+                    raise HotelManagementException("Error en el procesamiento interno al obtener la clave")
+
+                # Verificar que la fecha de llegada coincide con la fecha actual (sin tener en cuenta las horas y
+                # minutos)
 
                 # Convertir la fecha de llegada del archivo JSON a un objeto datetime
-                arrival_date_json = datetime.strptime(arrivalDate, "%d/%m/%Y")
-                # Verificar que la fecha de llegada coincide con la fecha actual (sin tener en cuenta las horas y minutos)
-                if arrival_date_json.date() != estancia.arrival:
-                    print(arrival_date_json.date(), estancia.arrival)
+
+                if fecha_operable.date() != estancia.arrival:
+                    print(fecha_operable.date(), estancia.arrival)
                     raise HotelManagementException("La fecha de llegada no coincide con la fecha actual")
 
-                # Generar el código de habitación utilizando SHA-256
-                room_key = estancia.room_key
-                if not room_key:
-                    raise HotelManagementException("Error de procesamiento interno al obtener la clave.")
+                # Comprobamos si el fichero tiene contenido, en caso contrario lo creamos
+                file_path2 = os.path.join(jsonFilesDir, "estancias.json")
 
-                if os.path.exists("../JsonFiles/estancias.json") and os.path.getsize("../JsonFiles/estancias.json") > 0:
-                    with open("../JsonFiles/estancias.json", "r") as file:
+                if os.path.exists(file_path2) and os.path.getsize(file_path2) > 0:
+                    with open(file_path2, "r") as file:
                         data = json.load(file)
                 else:
                     data = {"estancias": []}
 
-                data["estancias"].append(estancia.signature_string())
+                # Creamos los datos que va a tener el archivo del check-in,
+                # e incorporamos el room_key para la función 3
+
+                datos_estancia = {
+                    "alg": "SHA-256",
+                    "typ": roomType,
+                    "localizer": localizer_input,
+                    "arrival": arrivalDay,
+                    "departure": departure_day,
+                    "room_key": room_key
+                    }
+                data["estancias"].append(datos_estancia)
 
                 # Almacenar los datos actualizados en el archivo JSON
-                with open("../JsonFiles/estancias.json", "w") as file_out:
-                    json.dump(data, file_out, indent=1)
+                with open(file_path2, "w") as file_out:
+                    json.dump(data, file_out, indent=4)
 
-        except FileNotFoundError:
-            raise HotelManagementException("No se encuentra el archivo de datos")
-        except json.JSONDecodeError:
-            raise HotelManagementException("El archivo no tiene formato JSON")
         except HotelManagementException as e:
             raise e
 
@@ -239,11 +280,12 @@ class HotelManager:
     def guest_checkout(self, room_key):
         try:
             # Verificar si el código de habitación es un número hexadecimal válido
-            if not isinstance(room_key, str) or len(room_key) != 64 or not all(c in "0123456789abcdefABCDEF" for c in room_key):
+            if not isinstance(room_key, str) or len(room_key) != 64 or not all(
+                    c in "0123456789abcdefABCDEF" for c in room_key):
                 raise HotelManagementException("La cadena no contiene un código de habitación válido")
 
             # Leer la información de las estancias desde el archivo
-            with open("../JsonFiles/reservations.json", "r") as file:
+            with open("../../../JsonFiles/reservations.json", "r") as file:
                 estancias = json.load(file)
 
             # Verificar si el código de habitación existe en las estancias registradas
@@ -262,7 +304,8 @@ class HotelManager:
 
             # Registrar la salida en el archivo de salidas
             with open("salidas.txt", "a") as file:
-                file.write(f"Fecha de salida: {fecha_salida_actual.strftime('%Y-%m-%d %H:%M:%S')} UTC, Código de habitación: {room_key}\n")
+                file.write(
+                    f"Fecha de salida: {fecha_salida_actual.strftime('%Y-%m-%d %H:%M:%S')} UTC, Código de habitación: {room_key}\n")
 
             return True
 
@@ -285,7 +328,7 @@ except HotelManagementException as e:
 
 try:
     # Crear una instancia de HotelStay con datos simulados
-    stay = HotelManager().guest_arrival("../JsonFiles/input_eg2.json")
+    stay = HotelManager().guest_arrival("../../../JsonFiles/input_eg2.json")
 
     # Llamar a la función guest_arrival con el archivo de entrada simulado
     print("Clave de habitación generada:", stay)
@@ -293,5 +336,3 @@ try:
 
 except HotelManagementException as e:
     print("Error:", e)
-
-
