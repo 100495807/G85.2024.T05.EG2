@@ -3,16 +3,15 @@ import unittest
 from pathlib import Path
 from UC3MTravel.HotelManager import HotelManager
 from UC3MTravel.HotelManagementException import HotelManagementException
-JSON_FILES_PATH = str(Path.home()) + "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/"
-file_store = JSON_FILES_PATH + "reservations.json"
+
 
 class TestHotelManager(unittest.TestCase):
 
-    def setUp(self):
-
+    def test_TC1(self):
+        JSON_FILES_PATH = str(Path.home()) + "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/"
+        file_store = JSON_FILES_PATH + "reservations.json"
         if os.path.isfile(file_store):
             os.remove(file_store)
-    def test_TC1(self):
         # Caso de prueba para todos los datos válidos
         locator = HotelManager().room_reservation(
             creditcardNumb="5256783371569576",
@@ -138,6 +137,10 @@ class TestHotelManager(unittest.TestCase):
         self.assertEqual(str(e.exception), "Error: DNI inválido")
 
     def test_TC9(self):
+        JSON_FILES_PATH = str(Path.home()) + "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/"
+        file_store = JSON_FILES_PATH + "reservations.json"
+        if os.path.isfile(file_store):
+            os.remove(file_store)
         # Caso de prueba para un cliente que ya tiene una reserva
         manager = HotelManager()
         manager.room_reservation(

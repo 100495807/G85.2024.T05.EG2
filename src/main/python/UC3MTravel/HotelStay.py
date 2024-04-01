@@ -1,8 +1,6 @@
 ''' Class HotelStay (GE2.2) '''
 
 import hashlib
-from HotelManagementException import HotelManagementException
-import json
 from datetime import datetime, timedelta
 
 

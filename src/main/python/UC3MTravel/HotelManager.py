@@ -1,9 +1,9 @@
 import json
 import os
 from datetime import datetime, timedelta
-from HotelManagementException import HotelManagementException
-from HotelReservation import HotelReservation
-from HotelStay import HotelStay
+from .HotelManagementException import HotelManagementException
+from .HotelReservation import HotelReservation
+from .HotelStay import HotelStay
 from pathlib import Path
 JSON_FILES_PATH = str(Path.home()) + "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/"
 
