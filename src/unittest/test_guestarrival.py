@@ -1,10 +1,10 @@
 import os.path
-import unittest
 import json
 from freezegun import freeze_time
 
-from HotelManager import HotelManager
-from HotelManagementException import HotelManagementException
+import unittest
+from UC3MTravel.HotelManager import HotelManager
+from UC3MTravel.HotelManagementException import HotelManagementException
 from pathlib import Path
 JSON_FILES_PATH = str(Path.home()) + "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles"
 import os
