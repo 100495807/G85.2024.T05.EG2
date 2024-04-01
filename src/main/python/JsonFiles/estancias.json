@@ -1,0 +1,9 @@
+{
+ "estancias": [
+  "{alg:SHA-256,typ:single,localizer:04a90f1ce1fb8e6cc213fd6480803141,arrival:2024-04-01,departure:2024-04-06}",
+  "{alg:SHA-256,typ:single,localizer:04a90f1ce1fb8e6cc213fd6480803141,arrival:2024-04-01,departure:2024-04-06}",
+  "{alg:SHA-256,typ:single,localizer:04a90f1ce1fb8e6cc213fd6480803141,arrival:2024-04-01,departure:2024-04-06}",
+  "{alg:SHA-256,typ:single,localizer:04a90f1ce1fb8e6cc213fd6480803141,arrival:2024-04-01,departure:2024-04-06}",
+  "{alg:SHA-256,typ:single,localizer:04a90f1ce1fb8e6cc213fd6480803141,arrival:2024-04-01,departure:2024-04-06}"
+ ]
+}

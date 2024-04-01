@@ -6,8 +6,8 @@ from HotelManagementException import HotelManagementException
 class TestHotelManager(unittest.TestCase):
 
     def setUp(self):
-        if os.path.isfile("reservations.json"):
-            os.remove("reservations.json")
+        if os.path.isfile("../JsonFiles/reservations.json"):
+            os.remove("../JsonFiles/reservations.json")
     def test_TC1(self):
         # Caso de prueba para todos los datos válidos
         locator = HotelManager().room_reservation(
@@ -21,7 +21,7 @@ class TestHotelManager(unittest.TestCase):
         )
         self.assertEqual(locator, "04a90f1ce1fb8e6cc213fd6480803141")
 
-        with open("reservations.json", "r") as file:
+        with open("../JsonFiles/reservations.json", "r") as file:
             data = file.read()
 
         self.assertIn("12345678Z", data)  # Verificar si el DNI está en la reserva
