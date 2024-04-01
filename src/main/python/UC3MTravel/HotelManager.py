@@ -6,6 +6,7 @@ from HotelReservation import HotelReservation
 from HotelStay import HotelStay
 
 
+
 class HotelManager:
     def __init__(self):
         pass
@@ -270,7 +271,10 @@ class HotelManager:
 
                 # Almacenar los datos actualizados en el archivo JSON
                 with open(file_path2, "w") as file_out:
-                    json.dump(data, file_out, indent=4)
+                    json.dump(data, file_out, indent=1)
+
+        except FileNotFoundError:
+            raise HotelManagementException("El archivo no existe")
 
         except HotelManagementException as e:
             raise e
