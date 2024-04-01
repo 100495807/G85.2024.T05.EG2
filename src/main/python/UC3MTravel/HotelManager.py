@@ -168,7 +168,7 @@ class HotelManager:
         '''// El archivo de entrada es una cadena con la ruta del archivo
             descrita en HM-FR-02-I1
         // Devuelve un String en hexadecimal que representa el código de
-            la habitación (clave que será necesaria para HM-FR-02-O1)
+            la habitación (clave que será necesaria para jhuHM-FR-02-O1)
         // En caso de error, devuelve un HotelManagementException
             representa HM-FR-02-O3'''
         try:
