@@ -120,9 +120,39 @@ class TestGuestArrival(unittest.TestCase):
     def test7_invalid_dni(self):
         test_data = {
             "Localizer": "04a90f1ce1fb8e6cc213fd6480803141",
-            "IdCard": "12345678y"
+            "IdCard": "12345678Y"
         }
+        json_files_dir = (str(Path.home()) +
+                          "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/")
 
+        file_path = json_files_dir + "invalid_localizer.json"
+
+        with open(file_path, 'w') as file:
+            json.dump(test_data, file)
+
+        with self.assertRaises(HotelManagementException) as context:
+            stay = HotelManager()
+            stay.guest_arrival(file_path)
+        self.assertEqual(str(context.exception),
+                         "Los datos del JSON no tienen valores válidos")
+
+    def test8_empty_file(self):
+        test_data = {}
+        json_files_dir = (str(Path.home()) +
+                          "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/")
+
+        file_path = json_files_dir + "invalid_localizer.json"
+
+        with open(file_path, 'w') as file:
+            json.dump(test_data, file)
+
+        with self.assertRaises(HotelManagementException) as context:
+            stay = HotelManager()
+            stay.guest_arrival(file_path)
+        self.assertEqual(str(context.exception),
+                         "El archivo no tiene formato JSON")
+
+    
 
 
 
