@@ -314,7 +314,7 @@ class HotelManager:
             file_path = JSON_FILES_PATH + "estancias.json"
 
             # Buscar el código de habitación en el archivo de estancias JSON
-            if not os.path.exists(file_path) or os.path.getsize(file_path) < 20:
+            if not os.path.exists(file_path) or os.path.getsize(file_path) < 5:
                 raise HotelManagementException("El archivo de estancias no existe o está vacío")
 
             with open(file_path, "r") as file:
