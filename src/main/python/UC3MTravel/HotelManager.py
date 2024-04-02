@@ -317,7 +317,7 @@ class HotelManager:
                 if not estancia_encontrada:
                     raise HotelManagementException("El código de habitación no está registrado")
 
-                if not fecha_salida:
+                if fecha_salida == "":
                     raise HotelManagementException("La estancia en json no es válida")
 
             # Verificar la fecha prevista de salida
@@ -325,7 +325,7 @@ class HotelManager:
             fecha_actual_str = fecha_actual.strftime("%d/%m/%Y")
 
             if fecha_actual_str != fecha_salida:
-                raise HotelManagementException("La fecha de salida ya ha pasado")
+                raise HotelManagementException("La fecha de salida no coincide")
 
 
             salida_data = {
