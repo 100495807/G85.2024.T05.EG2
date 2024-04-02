@@ -241,7 +241,6 @@ class HotelManager:
 
                 # Convertir la fecha de llegada del archivo JSON a un objeto datetime
                 if fecha_operable.date() != estancia.arrival:
-                    print(fecha_operable.date(), estancia.arrival)
                     raise HotelManagementException("La fecha de llegada no coincide con la fecha actual")
 
                 # Comprobamos si el fichero tiene contenido, en caso contrario lo creamos
