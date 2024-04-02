@@ -279,7 +279,7 @@ class HotelManager:
 
         return room_key
 
-    def guest_checkout(room_key):
+    def guest_checkout(self, room_key):
         """
         Registra la salida del cliente del hotel.
 
@@ -311,13 +311,14 @@ class HotelManager:
                 for estancia in data["estancias"]:
                     if room_key == estancia["room_key"]:
                         estancia_encontrada = True
-                        localizador = estancia["localizer"]
-                        fecha_llegada = estancia["arrival"]
                         fecha_salida = estancia["departure"]
                         break
 
                 if not estancia_encontrada:
                     raise HotelManagementException("El código de habitación no está registrado")
+
+                if not fecha_salida:
+                    raise HotelManagementException("La estancia en json no es válida")
 
             # Verificar la fecha prevista de salida
             fecha_actual = datetime.now().date()

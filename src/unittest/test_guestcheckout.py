@@ -1,54 +1,45 @@
-import unittest
-from datetime import datetime, timezone
-from datetime import datetime, timedelta
-from unittest.mock import patch
+from UC3MTravel.HotelManagementException import HotelManagementException
 from UC3MTravel.HotelManager import HotelManager
 from pathlib import Path
-from UC3MTravel.HotelManagementException import HotelManagementException
+import unittest
+from freezegun import freeze_time
+JSON_FILES_PATH = str(Path.home()) + "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/"
 
-class TestRF3(unittest.TestCase):
-    def test_valid_room_key_format(self):
-        # La habitación tiene un formato válido
-        room_key = "0123456789abcdefABCDEF0123456789abcdefABCDEF0123456789abcdef"
-        self.assertTrue(HotelManager.guest_checkout(room_key))
 
-        # La habitación tiene un formato inválido (longitud incorrecta)
-        room_key = "0123456789abcdefABCDEF0123456789abcdefABCDEF0123456789abcd"
-        self.assertFalse(HotelManager.guest_checkout(room_key))
+class TestGuestCheckout(unittest.TestCase):
+    def setUp(self):
+        self.manager = HotelManager()  # Crear una instancia de HotelManager
 
-        # La habitación tiene un formato inválido (caracteres no hexadecimales)
-        room_key = "0123456789abcdefABCDEF0123456789abcdefABCDEF0123456789abcg"
-        self.assertFalse(HotelManager.guest_checkout(room_key))
+    @freeze_time("06/04/2024")
+    def test_guest_checkout_valid(self):
+        # Caso de prueba válido
+        self.assertTrue(self.manager.guest_checkout("28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9") == True)
 
-    @patch("hotel_manager.json.load")
-    def test_checkout_with_valid_room_key_and_date(self, mock_load):
-        # Definir el contenido simulado del archivo de estancias
-        mock_load.return_value = {
-            "0123456789abcdefABCDEF0123456789abcdefABCDEF0123456789abcdef": {
-                "departure": (datetime.now(timezone.utc)).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
-            }
-        }
 
-        # Realizar el checkout
-        result = self.manager.guest_checkout("0123456789abcdefABCDEF0123456789abcdefABCDEF0123456789abcdef")
+    def test_guest_checkout_invalid_room_key(self):
+        # Casos de prueba con room_key inválido
+        with self.assertRaises(HotelManagementException):
+            # No es una cadena
+            self.manager.guest_checkout("123")
+        with self.assertRaises(HotelManagementException):
+            # Longitud incorrecta
+            self.manager.guest_checkout("123")
 
-        # Verificar que el resultado sea True
-        self.assertTrue(result)
+    def test_guest_checkout_not_found(self):
+        # Casos de prueba con room_key no encontrado
+        with self.assertRaises(HotelManagementException):
+            # Room key no existe
+            self.manager.guest_checkout("non_existent_room_key")
 
-    @patch("hotelmanager.json.load")
-    def test_checkout_with_valid_room_key_and_invalid_date(self, mock_load):
-        # Definir el contenido simulado del archivo de estancias
-        mock_load.return_value = {
-            "0123456789abcdefABCDEF0123456789abcdefABCDEF0123456789abcdef": {
-                "departure": (datetime.now(timezone.utc) + timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
-            }
-        }
+    def test_guest_checkout_empty_file(self):
+        # Caso de prueba con archivo de estancias vacío
+        with self.assertRaises(HotelManagementException):
+            self.manager.guest_checkout("room_key_not_found_in_empty_file")
 
-        # Realizar el checkout
-        result = self.manager.guest_checkout("0123456789abcdefABCDEF0123456789abcdefABCDEF0123456789abcdef")
+    def test_guest_checkout_past_date(self):
+        # Caso de prueba con fecha de salida en el pasado
+        with self.assertRaises(HotelManagementException):
+            self.manager.guest_checkout("room_key_with_past_date")
 
-        # Verificar que el resultado sea False
-        self.assertFalse(result)
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
