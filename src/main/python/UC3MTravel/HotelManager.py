@@ -279,42 +279,73 @@ class HotelManager:
 
         return room_key
 
-    def guest_checkout(self, room_key):
+    def guest_checkout(room_key):
+        """
+        Registra la salida del cliente del hotel.
+
+        Args:
+            room_key (str): Código de habitación en formato SHA256.
+
+        Returns:
+            True si la salida se ha realizado correctamente, False si no.
+
+        Raises:
+            HotelManagementException: Si se produce algún error durante el proceso.
+        """
+
         try:
-            # Verificar si el código de habitación es un número hexadecimal válido
-            if not isinstance(room_key, str) or len(room_key) != 64 or not all(
-                    c in "0123456789abcdefABCDEF" for c in room_key):
-                raise HotelManagementException("La cadena no contiene un código de habitación válido")
+            # Verificar la exactitud del código de habitación recibido
+            if not isinstance(room_key, str) or len(room_key) != 64:
+                raise HotelManagementException("El código de habitación no es válido")
 
-            # Leer la información de las estancias desde el archivo
-            with open("../../../JsonFiles/reservations.json", "r") as file:
-                estancias = json.load(file)
+            file_path = JSON_FILES_PATH + "estancias.json"
 
-            # Verificar si el código de habitación existe en las estancias registradas
-            if room_key not in estancias:
-                raise HotelManagementException("El código de habitación no estaba registrado")
+            # Buscar el código de habitación en el archivo de estancias JSON
+            if not os.path.exists(file_path) or os.path.getsize(file_path) == 0:
+                raise HotelManagementException("El archivo de estancias no existe o está vacío")
 
-            # Obtener la fecha de salida prevista de la estancia
-            fecha_salida_prevista = datetime.strptime(estancias[room_key]["departure"], "%Y-%m-%dT%H:%M:%S.%fZ")
+            with open(file_path, "r") as file:
+                data = json.load(file)
+                estancia_encontrada = False
 
-            # Obtener la fecha y hora actual
-            fecha_salida_actual = datetime.now().date()
+                for estancia in data["estancias"]:
+                    if room_key == estancia["room_key"]:
+                        estancia_encontrada = True
+                        localizador = estancia["localizer"]
+                        fecha_llegada = estancia["arrival"]
+                        fecha_salida = estancia["departure"]
+                        break
 
-            # Comprobar si la fecha actual coincide con la fecha de salida prevista
-            if fecha_salida_prevista != fecha_salida_actual:
-                raise HotelManagementException("La fecha de salida no es válida")
+                if not estancia_encontrada:
+                    raise HotelManagementException("El código de habitación no está registrado")
 
-            # Registrar la salida en el archivo de salidas
-            with open("salidas.txt", "a") as file:
-                file.write(
-                    f"Fecha de salida: {fecha_salida_actual.strftime('%Y-%m-%d %H:%M:%S')} UTC, Código de habitación: {room_key}\n")
+            # Verificar la fecha prevista de salida
+            fecha_actual = datetime.now().date()
+
+            if fecha_actual != fecha_salida:
+                raise HotelManagementException("La fecha de salida no es la esperada")
+
+            salida_data = {
+                "room_key": room_key,
+                "check_out_date": fecha_actual.strftime("%d/%m/%Y")
+            }
+
+            salida_file_path = JSON_FILES_PATH + "check_outs.json"
+            if os.path.exists(salida_file_path) and os.path.getsize(salida_file_path) > 0:
+                with open(salida_file_path, "r") as file:
+                    check_out_data = json.load(file)
+            else:
+                check_out_data = {"check_outs": []}
+
+            check_out_data["check_outs"].append(salida_data)
+
+            with open(salida_file_path, "w") as file:
+                json.dump(check_out_data, file, indent=4)
 
             return True
 
         except HotelManagementException as e:
             raise e
-        except Exception as e:
-            raise HotelManagementException("Error de procesamiento interno al procesar el código: " + str(e))
 
 
 # Ejemplo de uso:
@@ -339,3 +370,4 @@ try:
 
 except HotelManagementException as e:
     print("Error:", e)
+
