@@ -57,6 +57,20 @@ class TestGuestArrival(unittest.TestCase):
             hotel_stay.guest_arrival("no_existe_archivo.json")
         self.assertEqual(str(context.exception), "El archivo no existe")
 
+    def test3_invalido_formato_json(self):
+        ruta_archivo_json = (str(Path.home()) +
+                             "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/")
+
+        ruta_archivo = ruta_archivo_json + "invalido_formato_json.json"
+
+        with open(ruta_archivo, 'w') as file:
+            file.write("hsfkcuasduHGWEUFSHJDOISD")
+
+        with self.assertRaises(HotelManagementException) as context:
+            hotel_stay = HotelManager()
+            hotel_stay.guest_arrival(ruta_archivo)
+        self.assertEqual(str(context.exception), "El archivo no tiene formato JSON")
+
     def test4_json_vacio_sin_llaves(self):
         ruta_archivo_json = (str(Path.home()) +
                              "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/")
@@ -103,36 +117,6 @@ class TestGuestArrival(unittest.TestCase):
             hotel_stay.guest_arrival(ruta_archivo)
         self.assertEqual(str(context.exception), "El archivo no tiene formato JSON")
 
-    def test33_invalido_json_estructure_DNI(self):
-        data = {
-            "IdCard": "12345678Z"
-        }
-        ruta_archivo_json = (str(Path.home()) +
-                             "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/")
-
-        ruta_archivo = ruta_archivo_json + "invalido_json_estructure_DNI.json"
-        with open(ruta_archivo, 'w') as file:
-            json.dump(data, file)
-
-        with self.assertRaises(HotelManagementException) as context:
-            hotel_stay = HotelManager()
-            hotel_stay.guest_arrival(ruta_archivo)
-        self.assertEqual(str(context.exception), "El archivo no tiene formato JSON")
-    # Prueba para formato JSON inválido
-
-    def test3_invalido_formato_json(self):
-        ruta_archivo_json = (str(Path.home()) +
-                             "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/")
-
-        ruta_archivo = ruta_archivo_json + "invalido_formato_json.json"
-
-        with open(ruta_archivo, 'w') as file:
-            file.write("hsfkcuasduHGWEUFSHJDOISD")
-
-        with self.assertRaises(HotelManagementException) as context:
-            hotel_stay = HotelManager()
-            hotel_stay.guest_arrival(ruta_archivo)
-        self.assertEqual(str(context.exception), "El archivo no tiene formato JSON")
 
     # Prueba archivo vacio
 
@@ -241,7 +225,7 @@ class TestGuestArrival(unittest.TestCase):
 
     def test13_invalido_localizer_33(self):
         datos = {
-            "Localizer": "56yf3201d9c43f34kfh6b671f82e7651",
+            "Localizer": "56yf3201d9c43f34kfh6b671f82e76511",
             "IdCard": "47589661Q",
         }
 
@@ -261,7 +245,7 @@ class TestGuestArrival(unittest.TestCase):
 
     def test14_invalido_localizer_31(self):
         datos = {
-            "Localizer": "56yf3201d9c43f34kfh6b671f82e7651",
+            "Localizer": "56yf3201d9c43f34kfh6b671f82e765",
             "IdCard": "47589661Q",
         }
 
@@ -537,7 +521,7 @@ class TestGuestArrival(unittest.TestCase):
         ruta_archivo_json = (str(Path.home()) +
                              "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/")
 
-        ruta_archivo = ruta_archivo_json + "localizer_caracteres_invalidos_inicio.json"
+        ruta_archivo = ruta_archivo_json + "localizer_caracteres_invalidos_mitad.json"
 
         with open(ruta_archivo, 'w') as file:
             json.dump(datos, file)
@@ -627,6 +611,23 @@ class TestGuestArrival(unittest.TestCase):
             hotel_stay.guest_arrival(ruta_archivo)
         self.assertEqual(str(context.exception),
                          "Los datos del JSON no tienen valores válidos")
+
+    def test33_invalido_json_estructure_DNI(self):
+        data = {
+            "IdCard": "12345678Z"
+        }
+        ruta_archivo_json = (str(Path.home()) +
+                             "/PycharmProjects/G85.2024.T05.EG2/src/JsonFiles/")
+
+        ruta_archivo = ruta_archivo_json + "invalido_json_estructure_DNI.json"
+        with open(ruta_archivo, 'w') as file:
+            json.dump(data, file)
+
+        with self.assertRaises(HotelManagementException) as context:
+            hotel_stay = HotelManager()
+            hotel_stay.guest_arrival(ruta_archivo)
+        self.assertEqual(str(context.exception), "El archivo no tiene formato JSON")
+    # Prueba para formato JSON inválido
 
     def test34_error_tiempo(self):
 
