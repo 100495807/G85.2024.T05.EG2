@@ -221,7 +221,7 @@ class TestGuestArrival(unittest.TestCase):
             hotel_stay = HotelManager()
             hotel_stay.guest_arrival(ruta_archivo)
         self.assertEqual(str(context.exception),
-                         "El localizador o el dni introducido no se corresponde con los datos almacenados")
+                         "El localizador o el DNI introducido no se corresponde con los datos almacenados")
 
     def test13_invalido_localizer_33(self):
         datos = {
@@ -241,7 +241,7 @@ class TestGuestArrival(unittest.TestCase):
             hotel_stay = HotelManager()
             hotel_stay.guest_arrival(ruta_archivo)
         self.assertEqual(str(context.exception),
-                         "El localizador o el dni introducido no se corresponde con los datos almacenados")
+                         "El localizador o el DNI introducido no se corresponde con los datos almacenados")
 
     def test14_invalido_localizer_31(self):
         datos = {
@@ -261,7 +261,7 @@ class TestGuestArrival(unittest.TestCase):
             hotel_stay = HotelManager()
             hotel_stay.guest_arrival(ruta_archivo)
         self.assertEqual(str(context.exception),
-                         "El localizador o el dni introducido no se corresponde con los datos almacenados")
+                         "El localizador o el DNI introducido no se corresponde con los datos almacenados")
 
     def test15_invalido_dni(self):
         datos = {
