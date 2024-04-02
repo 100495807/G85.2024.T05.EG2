@@ -322,9 +322,11 @@ class HotelManager:
 
             # Verificar la fecha prevista de salida
             fecha_actual = datetime.now().date()
+            fecha_actual_str = fecha_actual.strftime("%d/%m/%Y")
 
-            if fecha_actual != fecha_salida:
-                raise HotelManagementException("La fecha de salida no es la esperada")
+            if fecha_actual_str != fecha_salida:
+                raise HotelManagementException("La fecha de salida ya ha pasado")
+
 
             salida_data = {
                 "room_key": room_key,
