@@ -77,61 +77,77 @@ class HotelManager:
         else:
             return False
 
-    def room_reservation(self, creditcardNumb, nAMeAndSURNAME, IDCARD, phonenumber, room_type, arrival_date, num_days):
+    def room_reservation(self, creditcardNumb, nameAndSurname, idCard, phonenumber, roomType, arrivalDate, numDays):
 
+        '''Gestiona la reserva de habitaciones del hotel.
+
+            creditcardNumb (str): Número de tarjeta de crédito del cliente.
+            nameAndSurname (str): Nombre y apellidos del cliente.
+            idCard (str): DNI del cliente.
+            phonenumber (str): Número de teléfono del cliente.
+            roomType (str): Tipo de habitación (single, double, suite).
+            arrivalDate (str): Fecha de llegada en formato dd/mm/yyyy.
+            numDays (int): Número de días de estancia (entre 1 y 10).
+
+            Devuelve:
+                str: Localizador de la reserva en formato hexadecimal.
+
+            Lanza:
+                HotelManagementException: Si se produce algún error durante el proceso de reserva.
+            '''
         file_store = JSON_FILES_PATH + "reservations.json"
 
-        reserva = HotelReservation(creditcardNumb, nAMeAndSURNAME, IDCARD, phonenumber, room_type, arrival_date,
-                                   num_days)
+        reserva = HotelReservation(creditcardNumb, nameAndSurname, idCard, phonenumber, roomType, arrivalDate,
+                                   numDays)
 
         try:
             # Comprobamos si los datos son correctos
             if not self.validatecreditcard(creditcardNumb):
                 raise HotelManagementException("Número de tarjeta de crédito inválido")
 
-            if len(nAMeAndSURNAME.split()) < 2 or len(nAMeAndSURNAME) < 10 or len(nAMeAndSURNAME) > 50:
+            if len(nameAndSurname.split()) < 2 or len(nameAndSurname) < 10 or len(nameAndSurname) > 50:
                 raise HotelManagementException("La cadena del nombre y apellidos no es válida")
 
-            if not self.validar_dni(IDCARD):
+            if not self.validar_dni(idCard):
                 raise HotelManagementException("DNI inválido")
 
             if not phonenumber.isdigit() or len(phonenumber) != 9:
                 raise HotelManagementException("Número de teléfono inválido")
 
-            if room_type not in ['single', 'double', 'suite']:
+            if roomType not in ['single', 'double', 'suite']:
                 raise HotelManagementException("Tipo de habitación inválido")
 
             # Verificar si num_days es una cadena vacía
-            if isinstance(num_days, str) and not num_days.strip():
+            if isinstance(numDays, str) and not numDays.strip():
                 raise HotelManagementException("Número de noches inválido. Debe estar entre 1 y 10.")
 
             # Convertir num_days a entero si es una cadena
             try:
-                num_days = int(num_days)
+                numDays = int(numDays)
             except ValueError:
                 raise HotelManagementException("Número de noches inválido. Debe estar entre 1 y 10.")
 
             # Validar el rango de num_days
-            if not 1 <= num_days <= 10:
+            if not 1 <= numDays <= 10:
                 raise HotelManagementException("Número de noches inválido. Debe estar entre 1 y 10.")
 
             try:
                 # Convertir la cadena en un objeto datetime
-                arrival_date_aux = arrival_date
-                arrival_date = datetime.strptime(arrival_date, "%d/%m/%Y")
+                arrival_date_aux = arrivalDate
+                arrivalDate = datetime.strptime(arrivalDate, "%d/%m/%Y")
 
                 # Verificar que la fecha sea mayor que la fecha actual
-                if arrival_date <= datetime.now():
+                if arrivalDate <= datetime.now():
                     raise HotelManagementException("La fecha de llegada debe ser posterior a la fecha actual")
 
                 # Verificar que el día esté entre 1 y 31 y el mes esté entre 1 y 12
-                if not (1 <= arrival_date.day <= 31 and 1 <= arrival_date.month <= 12):
+                if not (1 <= arrivalDate.day <= 31 and 1 <= arrivalDate.month <= 12):
                     raise HotelManagementException("La fecha de llegada contiene un día o mes inválido")
             except ValueError:
                 raise HotelManagementException("Formato de fecha de llegada inválido. Debe ser dd/mm/yyyy.")
 
             # Verificar si el archivo existe y no está vacío
-            arrival_date = arrival_date_aux
+            arrivalDate = arrival_date_aux
             if os.path.exists(file_store) and os.path.getsize(file_store) > 0:
                 with open(file_store, "r") as file:
                     data = json.load(file)
@@ -140,18 +156,18 @@ class HotelManager:
 
             # Verificar si el cliente ya tiene una reserva
             for reservation in data["reservations"]:
-                if reservation["id_card"] == IDCARD:
+                if reservation["id_card"] == idCard:
                     raise HotelManagementException("El cliente ya tiene una reserva")
 
             # Agregar el localizador a los datos de la reserva
             reservation_data = {
                 "credit_card": creditcardNumb,
-                "name_surname": nAMeAndSURNAME,
-                "id_card": IDCARD,
+                "name_surname": nameAndSurname,
+                "id_card": idCard,
                 "phone_number": phonenumber,
-                "room_type": room_type,
-                "arrival_date": arrival_date,
-                "num_days": num_days,
+                "room_type": roomType,
+                "arrival_date": arrivalDate,
+                "num_days": numDays,
                 "localizer": reserva.LOCALIZER  # Agregar el localizador aquí
             }
 
@@ -166,7 +182,7 @@ class HotelManager:
         except HotelManagementException as e:
             raise HotelManagementException("Error: " + str(e))
 
-    def guest_arrival(self, input_file):
+    def guest_arrival(self, inputFile):
         '''// El archivo de entrada es una cadena con la ruta del archivo
             descrita en HM-FR-02-I1
         // Devuelve un String en hexadecimal que representa el código de
@@ -176,7 +192,7 @@ class HotelManager:
 
         try:
 
-            with open(input_file, 'r') as file_input:
+            with open(inputFile, 'r') as file_input:
                 try:
                     entrada = json.load(file_input)
 
@@ -277,12 +293,12 @@ class HotelManager:
 
         return room_key
 
-    def guest_checkout(self, room_key):
+    def guest_checkout(self, roomKey):
         """
         Registra la salida del cliente del hotel.
 
         Args:
-            room_key (str): Código de habitación en formato SHA256.
+            roomKey (str): Código de habitación en formato SHA256.
 
         Returns:
             True si la salida se ha realizado correctamente, False si no.
@@ -293,7 +309,7 @@ class HotelManager:
 
         try:
             # Verificar la exactitud del código de habitación recibido
-            if not isinstance(room_key, str) or len(room_key) != 64:
+            if not isinstance(roomKey, str) or len(roomKey) != 64:
                 raise HotelManagementException("El código de habitación no es válido")
 
             file_path = JSON_FILES_PATH + "estancias.json"
@@ -307,7 +323,7 @@ class HotelManager:
                 estancia_encontrada = False
 
                 for estancia in data["estancias"]:
-                    if room_key == estancia["room_key"]:
+                    if roomKey == estancia["room_key"]:
                         estancia_encontrada = True
                         fecha_salida = estancia["departure"]
                         break
@@ -325,7 +341,7 @@ class HotelManager:
 
 
             salida_data = {
-                "room_key": room_key,
+                "room_key": roomKey,
                 "check_out_date": fecha_actual.strftime("%d/%m/%Y")
             }
 

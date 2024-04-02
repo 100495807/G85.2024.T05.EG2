@@ -15,12 +15,12 @@ class TestHotelManager(unittest.TestCase):
         # Caso de prueba para todos los datos válidos
         locator = HotelManager().room_reservation(
             creditcardNumb="5256783371569576",
-            nAMeAndSURNAME="Lola Montero",
-            IDCARD="12345678Z",
+            nameAndSurname="Lola Montero",
+            idCard="12345678Z",
             phonenumber="123456781",
-            room_type="single",
-            arrival_date="13/12/2024",
-            num_days=5
+            roomType="single",
+            arrivalDate="13/12/2024",
+            numDays=5
         )
         self.assertEqual(locator, "04a90f1ce1fb8e6cc213fd6480803141")
 
@@ -35,12 +35,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Número de tarjeta de crédito inválido")
@@ -50,12 +50,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="1234567890123450",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Número de tarjeta de crédito inválido")
@@ -65,12 +65,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="A256783371569570",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Número de tarjeta de crédito inválido")
@@ -80,12 +80,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="12345678901234567",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Número de tarjeta de crédito inválido")
@@ -95,12 +95,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="256783371569570",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Número de tarjeta de crédito inválido")
@@ -111,12 +111,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="",
+                nameAndSurname="Lola Montero",
+                idCard="",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: DNI inválido")
@@ -126,12 +126,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678B",
+                nameAndSurname="Lola Montero",
+                idCard="12345678B",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: DNI inválido")
@@ -145,23 +145,23 @@ class TestHotelManager(unittest.TestCase):
         manager = HotelManager()
         manager.room_reservation(
             creditcardNumb="5256783371569576",
-            nAMeAndSURNAME="Lola Montero",
-            IDCARD="12345678Z",
+            nameAndSurname="Lola Montero",
+            idCard="12345678Z",
             phonenumber="123456781",
-            room_type="single",
-            arrival_date="13/12/2024",
-            num_days=5
+            roomType="single",
+            arrivalDate="13/12/2024",
+            numDays=5
         )
 
         with self.assertRaises(HotelManagementException) as e:
             manager.room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: El cliente ya tiene una reserva")
@@ -171,12 +171,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="123456789BC",
+                nameAndSurname="Lola Montero",
+                idCard="123456789BC",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: DNI inválido")
@@ -186,12 +186,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="1234567",
+                nameAndSurname="Lola Montero",
+                idCard="1234567",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: DNI inválido")
@@ -203,12 +203,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="",
-                IDCARD="12345678Z",
+                nameAndSurname="",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: La cadena del nombre y apellidos no es válida")
@@ -218,12 +218,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="LolaMontero",
-                IDCARD="12345678Z",
+                nameAndSurname="LolaMontero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: La cadena del nombre y apellidos no es válida")
@@ -233,12 +233,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lo Mo",
-                IDCARD="12345678Z",
+                nameAndSurname="Lo Mo",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: La cadena del nombre y apellidos no es válida")
@@ -248,12 +248,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero Espinosa Rodriguez De todos Los Santos Garcia Atrustegui",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero Espinosa Rodriguez De todos Los Santos Garcia Atrustegui",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: La cadena del nombre y apellidos no es válida")
@@ -263,12 +263,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Número de teléfono inválido")
@@ -278,12 +278,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123A567821",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Número de teléfono inválido")
@@ -293,12 +293,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="12346781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Número de teléfono inválido")
@@ -308,12 +308,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Tipo de habitación inválido")
@@ -323,12 +323,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="pringles",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="pringles",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Tipo de habitación inválido")
@@ -338,12 +338,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single single",
-                arrival_date="13/12/2024",
-                num_days=5
+                roomType="single single",
+                arrivalDate="13/12/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Tipo de habitación inválido")
@@ -354,12 +354,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="",
-                num_days=5
+                roomType="single",
+                arrivalDate="",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Formato de fecha de llegada inválido. Debe ser dd/mm/yyyy.")
@@ -369,12 +369,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/122024",
-                num_days=5
+                roomType="single",
+                arrivalDate="13/122024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Formato de fecha de llegada inválido. Debe ser dd/mm/yyyy.")
@@ -384,12 +384,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="18/01/2004",
-                num_days=5
+                roomType="single",
+                arrivalDate="18/01/2004",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: La fecha de llegada debe ser posterior a la fecha actual")
@@ -399,12 +399,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="34/0/2004",
-                num_days=5
+                roomType="single",
+                arrivalDate="34/0/2004",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Formato de fecha de llegada inválido. Debe ser dd/mm/yyyy.")
@@ -414,12 +414,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="0/16/2024",
-                num_days=5
+                roomType="single",
+                arrivalDate="0/16/2024",
+                numDays=5
             )
 
         self.assertEqual(str(e.exception), "Error: Formato de fecha de llegada inválido. Debe ser dd/mm/yyyy.")
@@ -429,12 +429,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=""
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=""
             )
 
         self.assertEqual(str(e.exception), "Error: Número de noches inválido. Debe estar entre 1 y 10.")
@@ -444,12 +444,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days="L55"
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays="L55"
             )
 
         self.assertEqual(str(e.exception), "Error: Número de noches inválido. Debe estar entre 1 y 10.")
@@ -459,12 +459,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=24
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=24
             )
 
         self.assertEqual(str(e.exception), "Error: Número de noches inválido. Debe estar entre 1 y 10.")
@@ -474,12 +474,12 @@ class TestHotelManager(unittest.TestCase):
         with self.assertRaises(HotelManagementException) as e:
             HotelManager().room_reservation(
                 creditcardNumb="5256783371569576",
-                nAMeAndSURNAME="Lola Montero",
-                IDCARD="12345678Z",
+                nameAndSurname="Lola Montero",
+                idCard="12345678Z",
                 phonenumber="123456781",
-                room_type="single",
-                arrival_date="13/12/2024",
-                num_days=0
+                roomType="single",
+                arrivalDate="13/12/2024",
+                numDays=0
             )
 
         self.assertEqual(str(e.exception), "Error: Número de noches inválido. Debe estar entre 1 y 10.")

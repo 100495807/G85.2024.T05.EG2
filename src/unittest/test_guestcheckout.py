@@ -101,5 +101,3 @@ class TestGuestCheckout(unittest.TestCase):
         self.assertEqual(str(context.exception), "La fecha de salida no coincide")
 
 
-if __name__ == '__main__':
-    unittest.main()

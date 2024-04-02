@@ -225,7 +225,7 @@ class TestGuestArrival(unittest.TestCase):
 
     def test13_invalido_localizer_33(self):
         datos = {
-            "Localizer": "56yf3201d9c43f34kfh6b671f82e76511",
+            "Localizer": "56yf3201d9c43f34kfh6b671f82e7651",
             "IdCard": "47589661Q",
         }
 
@@ -245,7 +245,7 @@ class TestGuestArrival(unittest.TestCase):
 
     def test14_invalido_localizer_31(self):
         datos = {
-            "Localizer": "56yf3201d9c43f34kfh6b671f82e765",
+            "Localizer": "56yf3201d9c43f34kfh6b671f82e7651",
             "IdCard": "47589661Q",
         }
 
@@ -648,8 +648,3 @@ class TestGuestArrival(unittest.TestCase):
             hotel_stay.guest_arrival(ruta_archivo)
         self.assertEqual(str(context.exception), "La fecha de llegada no coincide con la fecha actual")
 
-
-"""añadir solo { y otro solo }"""
-
-if __name__ == "__main__":
-    unittest.main()
