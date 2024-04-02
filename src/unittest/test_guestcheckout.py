@@ -19,7 +19,7 @@ class TestGuestCheckout(unittest.TestCase):
         # Casos de prueba con room_key inválido
         with self.assertRaises(HotelManagementException):
             # No es una cadena
-            self.manager.guest_checkout("28d32fa25abce85a4f01bxcf32cf6a7364f532727af401c1561eefec02cf1cf9")
+            self.manager.guest_checkout("hola")
 
     def test_guest_checkout_length_room_key(self):
         with self.assertRaises(HotelManagementException):
@@ -30,7 +30,7 @@ class TestGuestCheckout(unittest.TestCase):
         # Casos de prueba con room_key no encontrado
         with self.assertRaises(HotelManagementException):
             # Room key no existe
-            self.manager.guest_checkout("non_existent_room_key")
+            self.manager.guest_checkout("aafaff12f5fb742529x6z594d3e251f6387cd8633b5d3d29825afba6564d1581")
 
     def test_guest_checkout_empty_file(self):
         # Caso de prueba con archivo de estancias vacío
