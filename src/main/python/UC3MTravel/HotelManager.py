@@ -224,7 +224,7 @@ class HotelManager:
                         break
                     else:
                         raise HotelManagementException(
-                            "El localizador y el dni introducido no se corresponde con los datos almacenados")
+                            "El localizador o el dni introducido no se corresponde con los datos almacenados")
 
                 if not numDays:
                     raise HotelManagementException("Los datos del JSON no tienen valores válidos")
