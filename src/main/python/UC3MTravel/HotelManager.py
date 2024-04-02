@@ -351,26 +351,3 @@ class HotelManager:
             raise e
 
 
-'''# Ejemplo de uso:
-try:
-
-    localizador = HotelManager().room_reservation("5256783371569576", "Lola Montero", "12345678Z", "123456781",
-                                                  "single",
-                                                  "13/12/2024", 5)
-    print("Localizador de reserva:", localizador)
-
-except HotelManagementException as e:
-    print("Error al realizar la reserva:", e)
-
-try:
-    file_input = JSON_FILES_PATH + "input_eg2.json"
-    # Crear una instancia de HotelStay con datos simulados
-    stay = HotelManager().guest_arrival(file_input)
-
-    # Llamar a la función guest_arrival con el archivo de entrada simulado
-    print("Clave de habitación generada:", stay)
-
-
-except HotelManagementException as e:
-    print("Error:", e)
-'''
