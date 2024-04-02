@@ -349,7 +349,7 @@ class HotelManager:
             raise e
 
 
-# Ejemplo de uso:
+'''# Ejemplo de uso:
 try:
 
     localizador = HotelManager().room_reservation("5256783371569576", "Lola Montero", "12345678Z", "123456781",
@@ -371,4 +371,4 @@ try:
 
 except HotelManagementException as e:
     print("Error:", e)
-
+'''
