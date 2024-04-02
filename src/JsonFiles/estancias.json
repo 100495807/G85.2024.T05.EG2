@@ -1047,6 +1047,8 @@
    "arrival": "13/12/2024",
    "departure": "18/12/2024",
    "room_key": "aafaff12f5fb742529f6d794d3e251f6387cd8633b5d3d29825afba6564d1581"
+<<<<<<< Updated upstream
+=======
   },
   {
    "alg": "SHA-256",
@@ -1063,6 +1065,87 @@
    "arrival": "13/12/2024",
    "departure": "18/12/2024",
    "room_key": "aafaff12f5fb742529f6d794d3e251f6387cd8633b5d3d29825afba6564d1581"
+  },
+  {
+   "alg": "SHA-256",
+   "typ": "single",
+   "localizer": "04a90f1ce1fb8e6cc213fd6480803141",
+   "arrival": "13/12/2024",
+   "departure": "18/12/2024",
+   "room_key": "aafaff12f5fb742529f6d794d3e251f6387cd8633b5d3d29825afba6564d1581"
+  },
+  {
+   "alg": "SHA-256",
+   "typ": "single",
+   "localizer": "04a90f1ce1fb8e6cc213fd6480803141",
+   "arrival": "13/12/2024",
+   "departure": "18/12/2024",
+   "room_key": "aafaff12f5fb742529f6d794d3e251f6387cd8633b5d3d29825afba6564d1581"
+  },
+  {
+   "alg": "SHA-256",
+   "typ": "single",
+   "localizer": "04a90f1ce1fb8e6cc213fd6480803141",
+   "arrival": "13/12/2024",
+   "departure": "18/12/2024",
+   "room_key": "aafaff12f5fb742529f6d794d3e251f6387cd8633b5d3d29825afba6564d1581"
+  },
+  {
+   "alg": "SHA-256",
+   "typ": "single",
+   "localizer": "04a90f1ce1fb8e6cc213fd6480803141",
+   "arrival": "13/12/2024",
+   "departure": "18/12/2024",
+   "room_key": "aafaff12f5fb742529f6d794d3e251f6387cd8633b5d3d29825afba6564d1581"
+  },
+  {
+   "alg": "SHA-256",
+   "typ": "single",
+   "localizer": "04a90f1ce1fb8e6cc213fd6480803141",
+   "arrival": "13/12/2024",
+   "departure": "18/12/2024",
+   "room_key": "aafaff12f5fb742529f6d794d3e251f6387cd8633b5d3d29825afba6564d1581"
+  },
+  {
+   "alg": "SHA-256",
+   "typ": "single",
+   "localizer": "04a90f1ce1fb8e6cc213fd6480803141",
+   "arrival": "13/12/2024",
+   "departure": "18/12/2024",
+   "room_key": "aafaff12f5fb742529f6d794d3e251f6387cd8633b5d3d29825afba6564d1581"
+  },
+  {
+   "alg": "SHA-256",
+   "typ": "single",
+   "localizer": "04a90f1ce1fb8e6cc213fd6480803141",
+   "arrival": "13/12/2024",
+   "departure": "18/12/2024",
+   "room_key": "aafaff12f5fb742529f6d794d3e251f6387cd8633b5d3d29825afba6564d1581"
+  },
+  {
+   "alg": "SHA-256",
+   "typ": "single",
+   "localizer": "04a90f1ce1fb8e6cc213fd6480803141",
+   "arrival": "13/12/2024",
+   "departure": "18/12/2024",
+   "room_key": "aafaff12f5fb742529f6d794d3e251f6387cd8633b5d3d29825afba6564d1581"
+  },
+  {
+   "alg": "SHA-256",
+   "typ": "single",
+   "localizer": "04a90f1ce1fb8e6cc213fd6480803141",
+   "arrival": "13/12/2024",
+   "departure": "18/12/2024",
+   "room_key": "aafaff12f5fb742529f6d794d3e251f6387cd8633b5d3d29825afba6564d1581"
+  },
+  {
+   "alg": "SHA-256",
+   "typ": "single",
+   "localizer": "04a90f1ce1fb8e6cc213fd6480803141",
+   "arrival": "13/12/2024",
+   "departure": "18/12/2024",
+   "room_key": "aafaff12f5fb742529f6d794d3e251f6387cd8633b5d3d29825afba6564d1581"
+>>>>>>> Stashed changes
   }
  ]
 }
