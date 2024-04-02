@@ -240,7 +240,6 @@ class HotelManager:
                 # minutos)
 
                 # Convertir la fecha de llegada del archivo JSON a un objeto datetime
-
                 if fecha_operable.date() != estancia.arrival:
                     print(fecha_operable.date(), estancia.arrival)
                     raise HotelManagementException("La fecha de llegada no coincide con la fecha actual")
@@ -301,7 +300,7 @@ class HotelManager:
             file_path = JSON_FILES_PATH + "estancias.json"
 
             # Buscar el código de habitación en el archivo de estancias JSON
-            if not os.path.exists(file_path) or os.path.getsize(file_path) == 0:
+            if not os.path.exists(file_path) or os.path.getsize(file_path) < 20:
                 raise HotelManagementException("El archivo de estancias no existe o está vacío")
 
             with open(file_path, "r") as file:
@@ -317,8 +316,6 @@ class HotelManager:
                 if not estancia_encontrada:
                     raise HotelManagementException("El código de habitación no está registrado")
 
-                if fecha_salida == "":
-                    raise HotelManagementException("La estancia en json no es válida")
 
             # Verificar la fecha prevista de salida
             fecha_actual = datetime.now().date()

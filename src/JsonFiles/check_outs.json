@@ -1,72 +1,8 @@
 {
     "check_outs": [
         {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "04/06/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "04/07/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
-        },
-        {
-            "room_key": "28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9",
-            "check_out_date": "06/04/2024"
+            "room_key": "aafaff12f5fb742529f6d794d3e251f6387cd8633b5d3d29825afba6564d1581",
+            "check_out_date": "18/12/2024"
         }
     ]
 }
