@@ -9,8 +9,7 @@ JSON_FILES_PATH = str(Path.home()) + "/PycharmProjects/G85.2024.T05.EG2/src/Json
 class TestGuestCheckout(unittest.TestCase):
     def setUp(self):
         self.manager = HotelManager()  # Crear una instancia de HotelManager
-
-    @freeze_time("06/04/2024")
+    @freeze_time("04/06/2024")
     def test_guest_checkout_valid(self):
         # Caso de prueba válido
         self.assertTrue(self.manager.guest_checkout("28d32fa25abce85a4f01bebd32cf6a7364f532727af401c1561eefec02cf1cf9") == True)
@@ -20,7 +19,9 @@ class TestGuestCheckout(unittest.TestCase):
         # Casos de prueba con room_key inválido
         with self.assertRaises(HotelManagementException):
             # No es una cadena
-            self.manager.guest_checkout("123")
+            self.manager.guest_checkout("28d32fa25abce85a4f01bxcf32cf6a7364f532727af401c1561eefec02cf1cf9")
+
+    def test_guest_checkout_length_room_key(self):
         with self.assertRaises(HotelManagementException):
             # Longitud incorrecta
             self.manager.guest_checkout("123")
